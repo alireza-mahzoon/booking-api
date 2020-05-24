@@ -1,3 +1,3 @@
 # booking-api
 
-practice create, read, update and delete data from sql database 
+practice create data in sql database and read, update and delete from it 
