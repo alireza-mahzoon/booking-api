@@ -1,50 +1,71 @@
 package se.almstudio.booking.api.model.entity;
 
+import java.time.LocalDateTime;
+
 public class Room {
-    private int roomNumber;
-    private int roomPhoneNumber;
-    private int roomFloor;
+    private Long id;
+    private Long hotelId;
+    private int number;
+    private int phoneNumber;
+    private int floor;
     private int numberOfGuest;
-    private boolean isAvailable;
+    private LocalDateTime registered;
 
     public int getRoomNumber() {
-        return roomNumber;
+        return number;
     }
 
     public int getRoomPhoneNumber() {
-        return roomPhoneNumber;
+        return phoneNumber;
     }
 
     public int getRoomFloor() {
-        return roomFloor;
+        return floor;
     }
 
     public int getNumberOfGuest() {
         return numberOfGuest;
     }
 
-    public boolean isAvailable() {
-        return isAvailable;
+
+    public void setRoomNumber(int number) {
+        this.number = number;
     }
 
-    public void setRoomNumber(int roomNumber) {
-        this.roomNumber = roomNumber;
+    public void setRoomPhoneNumber(int phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public void setRoomPhoneNumber(int roomPhoneNumber) {
-        this.roomPhoneNumber = roomPhoneNumber;
-    }
-
-    public void setRoomFloor(int roomFloor) {
-        this.roomFloor = roomFloor;
+    public void setRoomFloor(int floor) {
+        this.floor = floor;
     }
 
     public void setNumberOfGuest(int numberOfGuest) {
         this.numberOfGuest = numberOfGuest;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public Long getRoomId() {
+        return id;
+    }
+
+    public LocalDateTime getRegistered() {
+        return registered;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
+    }
+
+    public void setRoomId(Long id) {
+        this.id = id;
+    }
+
+    public void setRegistered(LocalDateTime registered) {
+        this.registered = registered;
     }
 }
 

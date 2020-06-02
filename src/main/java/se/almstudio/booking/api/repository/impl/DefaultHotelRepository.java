@@ -3,6 +3,7 @@ package se.almstudio.booking.api.repository.impl;
 import se.almstudio.booking.api.model.entity.Hotel;
 import se.almstudio.booking.api.repository.HotelRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
+import se.almstudio.booking.api.util.impl.ConnectionUtils;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -132,16 +133,10 @@ public class DefaultHotelRepository implements HotelRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            try {
-                if (ps != null)
-                    ps.close();
-            } catch (SQLException ignored) {
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException ignored) {
-            }
+            ConnectionUtils.closeQuietly(ps);
+            ConnectionUtils.closeQuietly(connection);
         }
     }
+
+
 }
