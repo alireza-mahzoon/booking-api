@@ -2,6 +2,7 @@ package se.almstudio.booking.api.util.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConnectionUtils {
@@ -18,6 +19,14 @@ public class ConnectionUtils {
             if (connection != null)
                 connection.close();
         } catch (SQLException ignored) {
+        }
+    }
+
+    public static void closeQuietly(ResultSet rs){
+        try {
+            if (rs !=null)
+                rs.close();
+        } catch (SQLException ignored){
         }
     }
 }

@@ -62,21 +62,9 @@ public class DefaultHotelRepository implements HotelRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            try {
-                if (rs !=null)
-                    rs.close();
-            } catch (SQLException ignored){
-            }
-            try {
-                if (ps != null)
-                    ps.close();
-            } catch (SQLException ignored) {
-            }
-            try {
-                if (connection != null)
-                    connection.close();
-            } catch (SQLException ignored) {
-            }
+            ConnectionUtils.closeQuietly(rs);
+            ConnectionUtils.closeQuietly(ps);
+            ConnectionUtils.closeQuietly(connection);
         }
     }
 
