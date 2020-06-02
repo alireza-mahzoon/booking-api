@@ -11,7 +11,7 @@ CREATE TABLE Room (
     Id BIGSERIAL PRIMARY KEY,
     HotelId BIGINT REFERENCES hotel (id),
     Number INT NOT NULL,
-    PhoneNumber INT NOT NULL,
+    PhoneNumber TEXT NOT NULL,
     Floor INT NOT NULL,
     NumberOfGuests INT NOT NULL,
     Registered TIMESTAMP NOT NULL

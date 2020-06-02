@@ -6,7 +6,7 @@ public class Room {
     private Long id;
     private Long hotelId;
     private int number;
-    private int phoneNumber;
+    private String phoneNumber;
     private int floor;
     private int numberOfGuest;
     private LocalDateTime registered;
@@ -15,7 +15,7 @@ public class Room {
         return number;
     }
 
-    public int getRoomPhoneNumber() {
+    public String getRoomPhoneNumber() {
         return phoneNumber;
     }
 
@@ -32,7 +32,7 @@ public class Room {
         this.number = number;
     }
 
-    public void setRoomPhoneNumber(int phoneNumber) {
+    public void setRoomPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
