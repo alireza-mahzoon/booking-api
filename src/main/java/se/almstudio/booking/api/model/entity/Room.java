@@ -11,15 +11,23 @@ public class Room {
     private int numberOfGuest;
     private LocalDateTime registered;
 
-    public int getRoomNumber() {
+    public Long getId() {
+        return id;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public int getNumber() {
         return number;
     }
 
-    public String getRoomPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public int getRoomFloor() {
+    public int getFloor() {
         return floor;
     }
 
@@ -27,41 +35,32 @@ public class Room {
         return numberOfGuest;
     }
 
-
-    public void setRoomNumber(int number) {
-        this.number = number;
-    }
-
-    public void setRoomPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public void setRoomFloor(int floor) {
-        this.floor = floor;
-    }
-
-    public void setNumberOfGuest(int numberOfGuest) {
-        this.numberOfGuest = numberOfGuest;
-    }
-
-    public Long getHotelId() {
-        return hotelId;
-    }
-
-    public Long getRoomId() {
-        return id;
-    }
-
     public LocalDateTime getRegistered() {
         return registered;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
     }
 
-    public void setRoomId(Long id) {
-        this.id = id;
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public void setNumberOfGuest(int numberOfGuest) {
+        this.numberOfGuest = numberOfGuest;
     }
 
     public void setRegistered(LocalDateTime registered) {

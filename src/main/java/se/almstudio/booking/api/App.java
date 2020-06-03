@@ -1,8 +1,11 @@
 package se.almstudio.booking.api;
 
 import se.almstudio.booking.api.model.entity.Hotel;
+import se.almstudio.booking.api.model.entity.Room;
 import se.almstudio.booking.api.repository.HotelRepository;
+import se.almstudio.booking.api.repository.RoomRepository;
 import se.almstudio.booking.api.repository.impl.DefaultHotelRepository;
+import se.almstudio.booking.api.repository.impl.DefaultRoomRepository;
 
 /**
  * Hello world!
@@ -42,5 +45,20 @@ public class App
 
         //delete
         hotelRepository.delete(resultID);
+
+
+        RoomRepository roomRepository = new DefaultRoomRepository();
+
+        //Create room
+        Room room = new Room();
+        room.setHotelId(10L);
+        room.setNumber(202);
+        room.setPhoneNumber("2020");
+        room.setFloor(12);
+
+        Long resul = roomRepository.create(room);
+        System.out.println(resul);
+
+
     }
 }
