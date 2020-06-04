@@ -7,6 +7,9 @@ import se.almstudio.booking.api.repository.RoomRepository;
 import se.almstudio.booking.api.repository.impl.DefaultHotelRepository;
 import se.almstudio.booking.api.repository.impl.DefaultRoomRepository;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Hello world!
  *
@@ -17,9 +20,8 @@ public class App
     {
         // Create Read Update Read Delete Read
         HotelRepository hotelRepository = new DefaultHotelRepository();
-        Hotel result = hotelRepository.findById(5L);
-        System.out.println(result);
-
+        //Hotel result = hotelRepository.findById(5L);
+        //System.out.println(result);
 
         //Create
         Hotel hotel = new Hotel();
@@ -46,18 +48,47 @@ public class App
         //delete
         hotelRepository.delete(resultID);
 
-
         RoomRepository roomRepository = new DefaultRoomRepository();
 
-        //Create room
-        Room room = new Room();
-        room.setHotelId(10L);
-        room.setNumber(202);
-        room.setPhoneNumber("2020");
-        room.setFloor(12);
+        List<Room> rooms = roomRepository.findByHotelId(11L);
+        for (Room room : rooms) {
+            System.out.println(room);
+        }
 
-        Long resul = roomRepository.create(room);
-        System.out.println(resul);
+
+        //create a room
+        Room room = new Room();
+        room.setHotelId(11L);
+        room.setNumber(77);
+        room.setPhoneNumber("1111111");
+        room.setFloor(10);
+        room.setNumberOfGuest(8);
+        Long createdRoom = roomRepository.create(room);
+        System.out.println(createdRoom);
+
+        //Read room
+        Room sixtySixRoom = roomRepository.findById(createdRoom);
+        System.out.println(sixtySixRoom);
+
+        //Update the room
+        room.setHotelId(19L);
+        room.setNumber(88);
+        room.setPhoneNumber("631826");
+        room.setFloor(30);
+        room.setNumberOfGuest(5);
+        room.setId(createdRoom);
+        roomRepository.update(room);
+
+
+        //Read room
+        Room roomForHotelNineteen = roomRepository.findById(createdRoom);
+        System.out.println(roomForHotelNineteen);
+
+
+
+
+
+
 
 
     }

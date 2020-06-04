@@ -60,6 +60,7 @@ public class Hotel {
 
     @Override
     public String toString() {
+
         return "Hotel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +

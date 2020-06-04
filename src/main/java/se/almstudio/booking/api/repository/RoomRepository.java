@@ -2,6 +2,9 @@ package se.almstudio.booking.api.repository;
 
 import se.almstudio.booking.api.model.entity.Room;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public interface RoomRepository {
 
     /**
@@ -17,6 +20,13 @@ public interface RoomRepository {
      * @return Room if found, {@code null} if not found
      */
     Room findById(Long roomId);
+
+    /**
+     * Find rooms for a Hotel ID
+     * @param hotelId Hotel ID
+     * @retuen Room if found, {@code null} if not found
+     */
+    List<Room> findByHotelId(Long hotelId);
 
     /**
      * update room information
