@@ -151,4 +151,23 @@ public class DefaultRoomRepository implements RoomRepository {
             ConnectionUtils.closeQuietly(connection);
         }
     }
+
+    @Override
+    public boolean deleteRoomByHotelID(Long hotelId) {
+        Connection connection = null;
+        PreparedStatement ps = null;
+        try {
+            connection = ConnectionManager.INSTANCE.getConnection();
+            String query = "DELETE FROM Room WHERE hotelId=?";
+            ps = connection.prepareStatement(query);
+            ps.setLong(1, hotelId);
+            int result = ps.executeUpdate();
+            return result == 1;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            ConnectionUtils.closeQuietly(ps);
+            ConnectionUtils.closeQuietly(connection);
+        }
+    }
 }

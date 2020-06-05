@@ -41,4 +41,11 @@ public interface RoomRepository {
      * @return {@code true} if deleted
      */
     boolean delete(Long roomId);
+
+    /**
+     * Delete hotel by its hotel id
+     * @param hotelId Hotel ID
+     * @return {@code true} if deleted
+     */
+    boolean deleteRoomByHotelID(Long hotelId);
 }

@@ -92,14 +92,14 @@ public class DefaultHotelRepository implements HotelRepository {
     }
 
     @Override
-    public boolean delete(Long hotelId) {
+    public boolean delete(Long id) {
         Connection connection = null;
         PreparedStatement ps = null;
         try {
             connection = ConnectionManager.INSTANCE.getConnection();
             String query = "DELETE FROM Hotel WHERE id=?";
             ps = connection.prepareStatement(query);
-            ps.setLong(1, hotelId);
+            ps.setLong(1, id);
             int result = ps.executeUpdate();
             return result == 1;
         } catch (SQLException e) {
@@ -109,6 +109,4 @@ public class DefaultHotelRepository implements HotelRepository {
             ConnectionUtils.closeQuietly(connection);
         }
     }
-
-
 }
