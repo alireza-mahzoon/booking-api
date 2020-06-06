@@ -1,5 +1,7 @@
 package se.almstudio.booking.api.repository.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.almstudio.booking.api.model.entity.Hotel;
 import se.almstudio.booking.api.repository.HotelRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
@@ -9,6 +11,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class DefaultHotelRepository implements HotelRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelRepository.class);
 
     @Override
     public Long create(Hotel hotel) {
@@ -93,6 +96,7 @@ public class DefaultHotelRepository implements HotelRepository {
 
     @Override
     public boolean delete(Long id) {
+        LOGGER.info("Deleting hotel with hotelId={}", id);
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -101,8 +105,10 @@ public class DefaultHotelRepository implements HotelRepository {
             ps = connection.prepareStatement(query);
             ps.setLong(1, id);
             int result = ps.executeUpdate();
+            LOGGER.debug("{} hotel was deleted when deleting with hotelId={}", result, id);
             return result == 1;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to delete hotel with hotelId={}", id, e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);

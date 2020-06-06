@@ -162,7 +162,7 @@ public class DefaultRoomRepository implements RoomRepository {
             ps = connection.prepareStatement(query);
             ps.setLong(1, hotelId);
             int result = ps.executeUpdate();
-            return result == 1;
+            return result > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {

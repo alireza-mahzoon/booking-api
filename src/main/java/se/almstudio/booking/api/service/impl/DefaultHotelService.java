@@ -13,7 +13,6 @@ public class DefaultHotelService implements HotelService {
         RoomRepository roomRepository = new DefaultRoomRepository();
         roomRepository.deleteRoomByHotelID(hotelID);
         HotelRepository hotelRepository = new DefaultHotelRepository();
-        hotelRepository.delete(hotelID);
-        return false;
+        return hotelRepository.delete(hotelID);
     }
 }
