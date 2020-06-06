@@ -25,5 +25,25 @@ public class App
         DefaultHotelService hotelService = new DefaultHotelService();
         hotelService.delete(11L);
 
+        HotelRepository hotelRepository = new DefaultHotelRepository();
+
+        //Create
+        Hotel hotel = new Hotel();
+        hotel.setName("West Hotel");
+        hotel.setAddress("Solna 31");
+        hotel.setCity("Stockholm");
+        hotel.setCountry("Country");
+        Long resultID = hotelRepository.create(hotel);
+        System.out.println(resultID);
+
+        //Read
+        Hotel resultWestHotel = hotelRepository.findById(resultID);
+        System.out.println(resultWestHotel);
+
+        //Update
+        hotel.setName("East Hotel");
+        hotel.setId(resultID);
+        hotelRepository.update(hotel);
+
     }
 }

@@ -15,6 +15,7 @@ public class DefaultHotelRepository implements HotelRepository {
 
     @Override
     public Long create(Hotel hotel) {
+        LOGGER.info("Creating a hotel");
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -28,10 +29,12 @@ public class DefaultHotelRepository implements HotelRepository {
             ps.setObject(5, LocalDateTime.now());
             ps.executeUpdate();
             if (ps.getGeneratedKeys().next()) {
+                LOGGER.debug("Hotel was created, the hotel information is: name: {}, address: {}, city: {}, country: {}", hotel.getName(), hotel.getAddress(), hotel.getCity(), hotel.getCountry());
                 return ps.getGeneratedKeys().getLong(1);
             }
             return null;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to create hotel", e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);
@@ -41,6 +44,7 @@ public class DefaultHotelRepository implements HotelRepository {
 
     @Override
     public Hotel findById(Long hotelId){
+        LOGGER.info("Finding hotel with Id={}", hotelId);
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -59,10 +63,12 @@ public class DefaultHotelRepository implements HotelRepository {
                 hotel.setCity(rs.getString("city"));
                 hotel.setCountry(rs.getString("country"));
                 hotel.setRegistered(rs.getObject("registered", LocalDateTime.class));
+                LOGGER.debug("Hotel was found with hotelId={}", hotelId);
                 return hotel;
             }
             return null;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to find hotel with hotelId={}", hotelId, e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(rs);
@@ -73,6 +79,7 @@ public class DefaultHotelRepository implements HotelRepository {
 
     @Override
     public boolean update(Hotel hotel) {
+        LOGGER.info("Updating a hotel information (name, address and city)");
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -84,9 +91,10 @@ public class DefaultHotelRepository implements HotelRepository {
             ps.setString(3, hotel.getCity());
             ps.setLong(4, hotel.getId());
             int resultUpdated = ps.executeUpdate();
-
+            LOGGER.debug("{} hotel was updated, information of hotel with id={} after update is: name: {}, address: {}, city: {}", resultUpdated, hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getCity());
             return resultUpdated == 1;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to update the hotel with Id={}", hotel.getId(), e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);
