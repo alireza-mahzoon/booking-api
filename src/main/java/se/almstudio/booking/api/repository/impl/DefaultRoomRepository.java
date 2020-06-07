@@ -1,9 +1,12 @@
 package se.almstudio.booking.api.repository.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import se.almstudio.booking.api.model.entity.Room;
 import se.almstudio.booking.api.repository.RoomRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
+import sun.jvm.hotspot.debugger.linux.LinuxOopHandle;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -11,9 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefaultRoomRepository implements RoomRepository {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomRepository.class);
 
     @Override
     public Long create(Room room) {
+        LOGGER.info("Creating a room");
         Connection connection = null;
         PreparedStatement ps = null;
         try{
@@ -28,10 +33,12 @@ public class DefaultRoomRepository implements RoomRepository {
             ps.setObject(6,LocalDateTime.now());
             ps.executeUpdate();
             if (ps.getGeneratedKeys().next()) {
+                LOGGER.debug("Room was created, the room is in the hotel with hotelId={}, the room information is: number: {}, phoneNUmber: {}, floor: {}, numberOfGuests: {}", room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());
                 return ps.getGeneratedKeys().getLong(1);
             }
             return null;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to create room", e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);
@@ -41,6 +48,7 @@ public class DefaultRoomRepository implements RoomRepository {
 
     @Override
     public Room findById(Long roomId) {
+        LOGGER.info("Finding hotel with Id={}", roomId);
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -60,10 +68,12 @@ public class DefaultRoomRepository implements RoomRepository {
                 room.setFloor(rs.getInt("floor"));
                 room.setNumberOfGuest(rs.getInt("numberOfGuests"));
                 room.setRegistered(rs.getObject("registered", LocalDateTime.class));
+                LOGGER.debug("Room was found with roomId={}", roomId);
                 return room;
             }
             return null;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to find the room", e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(rs);
@@ -74,6 +84,7 @@ public class DefaultRoomRepository implements RoomRepository {
 
     @Override
     public boolean update(Room room) {
+        LOGGER.info("Updating a room information (hotelID, number, phoneNumber, floor, numberOfGuests)");
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -87,9 +98,10 @@ public class DefaultRoomRepository implements RoomRepository {
             ps.setInt(5,room.getNumberOfGuest());
             ps.setLong(6, room.getId());
             int resultUpdated = ps.executeUpdate();
-
+            LOGGER.debug("{} room was updated, information of room with id={} after update is: hotelId={}, number={}, phoneNumber={}, floor={}, numberOfGuests={}", resultUpdated, room.getId(), room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());
             return resultUpdated == 1;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to update the room", e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);
@@ -99,6 +111,7 @@ public class DefaultRoomRepository implements RoomRepository {
 
     @Override
     public boolean delete(Long roomId) {
+        LOGGER.info("Deleting room with roomId={}", roomId);
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -107,8 +120,10 @@ public class DefaultRoomRepository implements RoomRepository {
             ps = connection.prepareStatement(query);
             ps.setLong(1, roomId);
             int result = ps.executeUpdate();
+            LOGGER.debug("{} room was deleted when deleting with roomId={}", result, roomId);
             return result == 1;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to delete the room with roomId={}", roomId, e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);
@@ -119,6 +134,7 @@ public class DefaultRoomRepository implements RoomRepository {
 
     @Override
     public List<Room> findByHotelId(Long hotelId) {
+        LOGGER.info("Finding list of rooms with hotelId={}", hotelId);
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -141,9 +157,10 @@ public class DefaultRoomRepository implements RoomRepository {
                 room.setRegistered(rs.getObject("registered", LocalDateTime.class));
                 rooms.add(room);
             }
+            LOGGER.debug("Rooms were found with hotelId={}", hotelId);
             return rooms;
-
         } catch (SQLException e) {
+            LOGGER.warn("Failed to find rooms with hotelId={}", hotelId);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(rs);
@@ -154,6 +171,7 @@ public class DefaultRoomRepository implements RoomRepository {
 
     @Override
     public boolean deleteRoomByHotelID(Long hotelId) {
+        LOGGER.info("Deleting rom with hotelId={}", hotelId);
         Connection connection = null;
         PreparedStatement ps = null;
         try {
@@ -162,8 +180,10 @@ public class DefaultRoomRepository implements RoomRepository {
             ps = connection.prepareStatement(query);
             ps.setLong(1, hotelId);
             int result = ps.executeUpdate();
+            LOGGER.debug("{} room was deleted when deleting with hotelId={}", result, hotelId);
             return result > 0;
         } catch (SQLException e) {
+            LOGGER.warn("Failed to delete room with hotelId={}", hotelId, e);
             throw new RuntimeException(e);
         } finally {
             ConnectionUtils.closeQuietly(ps);
