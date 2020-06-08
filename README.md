@@ -4,7 +4,7 @@ The API make it possible to record information about different hotels and rooms 
 access to the information of the rooms and hotel.
 
 # Requirements
-*Java
+*Java\
 *PostgresSQL
 
 #Features
