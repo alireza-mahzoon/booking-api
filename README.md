@@ -7,7 +7,7 @@ access to the information of the rooms and hotel.
 *Java\
 *PostgresSQL
 
-#Features
-*Recording information of hotels and rooms
-*Removing or updating hotels and rooms information
+# Features
+*Recording information of hotels and rooms\
+*Removing or updating hotels and rooms information\
 *Finding information about hotels and hotels' rooms
