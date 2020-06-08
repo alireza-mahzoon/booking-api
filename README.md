@@ -4,10 +4,10 @@ The API make it possible to record information about different hotels and rooms 
 access to the information of the rooms and hotel.
 
 # Requirements
-*Java\
-*PostgresSQL
+* JDK 1.8
+* PostgresSQL
 
 # Features
-*Recording information of hotels and rooms\
-*Removing or updating hotels and rooms information\
-*Finding information about hotels and hotels' rooms
+* Recording information of hotels and rooms
+* Removing or updating hotels and rooms information
+* Finding information about hotels and hotels' rooms
