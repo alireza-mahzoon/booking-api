@@ -20,4 +20,18 @@ public class DefaultHotelRepositoryTest {
         Assert.assertNotNull(result);
         Assert.assertNotEquals(0L, result.longValue());
     }
+
+    @Test
+    public void testDeleteHotelByIdExpectTrue() {
+        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+        Hotel hotel = new Hotel();
+        hotel.setName("Scandic");
+        hotel.setCity("Stockholm");
+        hotel.setCountry("Sweden");
+        hotel.setAddress("Sundby");
+        hotel.setRegistered(LocalDateTime.now());
+        Long result = hotelRepository.create(hotel);
+        boolean resultDelete = hotelRepository.delete(result);
+        Assert.assertTrue(resultDelete);
+    }
 }
