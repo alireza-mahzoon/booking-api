@@ -6,7 +6,6 @@ import se.almstudio.booking.api.model.entity.Room;
 import se.almstudio.booking.api.repository.RoomRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
-import sun.jvm.hotspot.debugger.linux.LinuxOopHandle;
 
 import java.sql.*;
 import java.time.LocalDateTime;
