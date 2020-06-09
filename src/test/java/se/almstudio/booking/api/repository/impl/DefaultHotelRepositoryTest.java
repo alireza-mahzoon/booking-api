@@ -1,12 +1,31 @@
 package se.almstudio.booking.api.repository.impl;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 import se.almstudio.booking.api.model.entity.Hotel;
 
 import java.time.LocalDateTime;
 
 public class DefaultHotelRepositoryTest {
+    @BeforeClass
+    public static void beforeClass() {
+        System.out.println("before test class");
+    }
+
+    @AfterClass
+    public static void afterClass(){
+        System.out.println("after test class");
+    }
+
+    @Before
+    public void before() {
+        System.out.println("before testing");
+    }
+
+    @After
+    public void after() {
+        System.out.println("after testing");
+    }
+
     @Test
     public void testCreateHotelExpectNoneNullId() {
         DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
