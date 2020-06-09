@@ -52,7 +52,7 @@ public class DefaultHotelRepositoryTest {
         boolean resultUpdate = hotelRepository.update(hotel);
         Assert.assertTrue(resultUpdate);
     }
-    
+
     @Test
     public void testDeleteHotelByIdExpectTrue() {
         DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
