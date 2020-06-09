@@ -75,4 +75,26 @@ public class DefaultRoomRepositoryTest {
         boolean resultUpdate = roomRepository.update(room);
         Assert.assertTrue(resultUpdate);
     }
+
+    @Test
+    public void testDeleteRoomExpectTrue() {
+        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+        Hotel hotel = new Hotel();
+        hotel.setName("Scandic");
+        hotel.setCity("Stockholm");
+        hotel.setCountry("Sweden");
+        hotel.setAddress("Sundby");
+        Long resultHotelId = hotelRepository.create(hotel);
+        DefaultRoomRepository roomRepository = new DefaultRoomRepository();
+        Room room = new Room();
+        room.setHotelId(resultHotelId);
+        room.setNumber(99);
+        room.setPhoneNumber("964389");
+        room.setFloor(25);
+        room.setNumberOfGuest(4);
+        room.setRegistered(LocalDateTime.now());
+        Long roomId = roomRepository.create(room);
+        boolean resultDelete = roomRepository.delete(roomId);
+        Assert.assertTrue(resultDelete);
+    }
 }
