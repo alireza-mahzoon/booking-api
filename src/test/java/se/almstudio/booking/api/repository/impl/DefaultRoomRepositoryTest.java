@@ -48,4 +48,31 @@ public class DefaultRoomRepositoryTest {
         Assert.assertEquals(room.getFloor(), roomCreated.getFloor());
         Assert.assertEquals(room.getNumberOfGuest(), roomCreated.getNumberOfGuest());
     }
+
+    @Test
+    public void testUpdateRoomExpectTrue() {
+        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+        Hotel hotel = new Hotel();
+        hotel.setName("Scandic");
+        hotel.setCity("Stockholm");
+        hotel.setCountry("Sweden");
+        hotel.setAddress("Sundby");
+        Long resultHotelId = hotelRepository.create(hotel);
+        DefaultRoomRepository roomRepository = new DefaultRoomRepository();
+        Room room = new Room();
+        room.setHotelId(resultHotelId);
+        room.setNumber(99);
+        room.setPhoneNumber("964389");
+        room.setFloor(25);
+        room.setNumberOfGuest(4);
+        room.setRegistered(LocalDateTime.now());
+        Long roomId = roomRepository.create(room);
+        room.setNumber(88);
+        room.setPhoneNumber("631826");
+        room.setFloor(30);
+        room.setNumberOfGuest(5);
+        room.setId(roomId);
+        boolean resultUpdate = roomRepository.update(room);
+        Assert.assertTrue(resultUpdate);
+    }
 }
