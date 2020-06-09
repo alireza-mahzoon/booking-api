@@ -15,52 +15,52 @@ public class Room {
         return id;
     }
 
-    public Long getHotelId() {
-        return hotelId;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public int getFloor() {
-        return floor;
-    }
-
-    public int getNumberOfGuest() {
-        return numberOfGuest;
-    }
-
-    public LocalDateTime getRegistered() {
-        return registered;
-    }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getHotelId() {
+        return hotelId;
     }
 
     public void setHotelId(Long hotelId) {
         this.hotelId = hotelId;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     public void setNumber(int number) {
         this.number = number;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    public int getFloor() {
+        return floor;
+    }
+
     public void setFloor(int floor) {
         this.floor = floor;
     }
 
+    public int getNumberOfGuest() {
+        return numberOfGuest;
+    }
+
     public void setNumberOfGuest(int numberOfGuest) {
         this.numberOfGuest = numberOfGuest;
+    }
+
+    public LocalDateTime getRegistered() {
+        return registered;
     }
 
     public void setRegistered(LocalDateTime registered) {

@@ -20,16 +20,16 @@ public class DefaultRoomRepository implements RoomRepository {
         LOGGER.info("Creating a room");
         Connection connection = null;
         PreparedStatement ps = null;
-        try{
+        try {
             connection = ConnectionManager.INSTANCE.getConnection();
             String query = "INSERT INTO Room(HotelId, Number, PhoneNumber, Floor, NumberOfGuests, Registered) VALUES(?,?,?,?,?,?)";
             ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, room.getHotelId());
             ps.setInt(2, room.getNumber());
             ps.setString(3, room.getPhoneNumber());
-            ps.setInt(4,room.getFloor());
-            ps.setInt(5,room.getNumberOfGuest());
-            ps.setObject(6,LocalDateTime.now());
+            ps.setInt(4, room.getFloor());
+            ps.setInt(5, room.getNumberOfGuest());
+            ps.setObject(6, LocalDateTime.now());
             ps.executeUpdate();
             if (ps.getGeneratedKeys().next()) {
                 LOGGER.debug("Room was created, the room is in the hotel with hotelId={}, the room information is: number: {}, phoneNUmber: {}, floor: {}, numberOfGuests: {}", room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());
@@ -51,14 +51,14 @@ public class DefaultRoomRepository implements RoomRepository {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try{
+        try {
             connection = ConnectionManager.INSTANCE.getConnection();
             String query = "SELECT * FROM Room WHERE id=?";
             ps = connection.prepareStatement(query);
             ps.setLong(1, roomId);
             ps.execute();
             rs = ps.getResultSet();
-            if(rs.next()){
+            if (rs.next()) {
                 Room room = new Room();
                 room.setId(roomId);
                 room.setHotelId(rs.getLong("hotelId"));
@@ -93,8 +93,8 @@ public class DefaultRoomRepository implements RoomRepository {
             ps.setLong(1, room.getHotelId());
             ps.setInt(2, room.getNumber());
             ps.setString(3, room.getPhoneNumber());
-            ps.setInt(4,room.getFloor());
-            ps.setInt(5,room.getNumberOfGuest());
+            ps.setInt(4, room.getFloor());
+            ps.setInt(5, room.getNumberOfGuest());
             ps.setLong(6, room.getId());
             int resultUpdated = ps.executeUpdate();
             LOGGER.debug("{} room was updated, information of room with id={} after update is: hotelId={}, number={}, phoneNumber={}, floor={}, numberOfGuests={}", resultUpdated, room.getId(), room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());
@@ -137,7 +137,7 @@ public class DefaultRoomRepository implements RoomRepository {
         Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try{
+        try {
             connection = ConnectionManager.INSTANCE.getConnection();
             String query = "SELECT * FROM Room WHERE hotelId=?";
             ps = connection.prepareStatement(query);
@@ -145,7 +145,7 @@ public class DefaultRoomRepository implements RoomRepository {
             ps.execute();
             rs = ps.getResultSet();
             List<Room> rooms = new ArrayList<>();
-            while(rs.next()){
+            while (rs.next()) {
                 Room room = new Room();
                 room.setId(rs.getLong("ID"));
                 room.setHotelId(rs.getLong("hotelId"));

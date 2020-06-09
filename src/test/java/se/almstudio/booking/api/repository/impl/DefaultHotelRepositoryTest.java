@@ -12,7 +12,7 @@ public class DefaultHotelRepositoryTest {
     }
 
     @AfterClass
-    public static void afterClass(){
+    public static void afterClass() {
         System.out.println("after test class");
     }
 
@@ -50,14 +50,14 @@ public class DefaultHotelRepositoryTest {
         hotel.setAddress("Sundby");
         Long result = hotelRepository.create(hotel);
         Hotel resultHotel = hotelRepository.findById(result);
-        Assert.assertEquals(hotel.getName(),resultHotel.getName());
-        Assert.assertEquals(hotel.getCity(),resultHotel.getCity());
-        Assert.assertEquals(hotel.getCountry(),resultHotel.getCountry());
-        Assert.assertEquals(hotel.getAddress(),resultHotel.getAddress());
+        Assert.assertEquals(hotel.getName(), resultHotel.getName());
+        Assert.assertEquals(hotel.getCity(), resultHotel.getCity());
+        Assert.assertEquals(hotel.getCountry(), resultHotel.getCountry());
+        Assert.assertEquals(hotel.getAddress(), resultHotel.getAddress());
     }
 
     @Test
-    public void testUpdateHotelExpectTrue(){
+    public void testUpdateHotelExpectTrue() {
         DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
         Hotel hotel = new Hotel();
         hotel.setName("Scandic");
