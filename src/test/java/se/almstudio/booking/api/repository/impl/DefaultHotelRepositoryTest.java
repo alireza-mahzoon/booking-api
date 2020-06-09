@@ -22,6 +22,22 @@ public class DefaultHotelRepositoryTest {
     }
 
     @Test
+    public void testReadHotelByHotelIdExpectHotel() {
+        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+        Hotel hotel = new Hotel();
+        hotel.setName("Scandic");
+        hotel.setCity("Stockholm");
+        hotel.setCountry("Sweden");
+        hotel.setAddress("Sundby");
+        Long result = hotelRepository.create(hotel);
+        Hotel resultHotel = hotelRepository.findById(result);
+        Assert.assertEquals(hotel.getName(),resultHotel.getName());
+        Assert.assertEquals(hotel.getCity(),resultHotel.getCity());
+        Assert.assertEquals(hotel.getCountry(),resultHotel.getCountry());
+        Assert.assertEquals(hotel.getAddress(),resultHotel.getAddress());
+    }
+
+    @Test
     public void testUpdateHotelExpectTrue(){
         DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
         Hotel hotel = new Hotel();
@@ -36,7 +52,7 @@ public class DefaultHotelRepositoryTest {
         boolean resultUpdate = hotelRepository.update(hotel);
         Assert.assertTrue(resultUpdate);
     }
-
+    
     @Test
     public void testDeleteHotelByIdExpectTrue() {
         DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
