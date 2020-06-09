@@ -22,6 +22,22 @@ public class DefaultHotelRepositoryTest {
     }
 
     @Test
+    public void testUpdateHotelExpectTrue(){
+        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+        Hotel hotel = new Hotel();
+        hotel.setName("Scandic");
+        hotel.setCity("Stockholm");
+        hotel.setCountry("Sweden");
+        hotel.setAddress("Sundby");
+        hotel.setRegistered(LocalDateTime.now());
+        Long result = hotelRepository.create(hotel);
+        hotel.setName("Scandic 53");
+        hotel.setId(result);
+        boolean resultUpdate = hotelRepository.update(hotel);
+        Assert.assertTrue(resultUpdate);
+    }
+
+    @Test
     public void testDeleteHotelByIdExpectTrue() {
         DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
         Hotel hotel = new Hotel();
