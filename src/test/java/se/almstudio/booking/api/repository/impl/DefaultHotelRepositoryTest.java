@@ -6,25 +6,20 @@ import se.almstudio.booking.api.model.entity.Hotel;
 import java.time.LocalDateTime;
 
 public class DefaultHotelRepositoryTest {
-    @BeforeClass
-    public static void beforeClass() {
-        System.out.println("before test class");
-    }
 
-    @AfterClass
-    public static void afterClass() {
-        System.out.println("after test class");
-    }
-
-    @Before
-    public void before() {
-        System.out.println("before testing");
-    }
-
-    @After
-    public void after() {
-        System.out.println("after testing");
-    }
+  private static Long hotelIdDeleted;
+  private static Long hotelIdCreated;
+  private static Long hotelIdRead;
+  private static Long hotelIdUpdated;
+  
+  @AfterClass
+  public static void afterClass() {
+    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+    hotelRepository.delete(hotelIdDeleted);
+    hotelRepository.delete(hotelIdCreated);
+    hotelRepository.delete(hotelIdRead);
+    hotelRepository.delete(hotelIdUpdated);
+  }
 
     @Test
     public void testCreateHotelExpectNoneNullId() {
@@ -35,9 +30,9 @@ public class DefaultHotelRepositoryTest {
         hotel.setCountry("Sweden");
         hotel.setAddress("Sundby");
         hotel.setRegistered(LocalDateTime.now());
-        Long result = hotelRepository.create(hotel);
-        Assert.assertNotNull(result);
-        Assert.assertNotEquals(0L, result.longValue());
+        hotelIdCreated = hotelRepository.create(hotel);
+        Assert.assertNotNull(hotelIdCreated);
+        Assert.assertNotEquals(0L, hotelIdCreated.longValue());
     }
 
     @Test
@@ -48,8 +43,8 @@ public class DefaultHotelRepositoryTest {
         hotel.setCity("Stockholm");
         hotel.setCountry("Sweden");
         hotel.setAddress("Sundby");
-        Long result = hotelRepository.create(hotel);
-        Hotel resultHotel = hotelRepository.findById(result);
+        hotelIdRead = hotelRepository.create(hotel);
+        Hotel resultHotel = hotelRepository.findById(hotelIdRead);
         Assert.assertEquals(hotel.getName(), resultHotel.getName());
         Assert.assertEquals(hotel.getCity(), resultHotel.getCity());
         Assert.assertEquals(hotel.getCountry(), resultHotel.getCountry());
@@ -65,9 +60,9 @@ public class DefaultHotelRepositoryTest {
         hotel.setCountry("Sweden");
         hotel.setAddress("Sundby");
         hotel.setRegistered(LocalDateTime.now());
-        Long result = hotelRepository.create(hotel);
+        hotelIdUpdated = hotelRepository.create(hotel);
         hotel.setName("Scandic 53");
-        hotel.setId(result);
+        hotel.setId(hotelIdUpdated);
         boolean resultUpdate = hotelRepository.update(hotel);
         Assert.assertTrue(resultUpdate);
     }
@@ -81,8 +76,9 @@ public class DefaultHotelRepositoryTest {
         hotel.setCountry("Sweden");
         hotel.setAddress("Sundby");
         hotel.setRegistered(LocalDateTime.now());
-        Long result = hotelRepository.create(hotel);
-        boolean resultDelete = hotelRepository.delete(result);
+        hotelIdDeleted = hotelRepository.create(hotel);
+
+        boolean resultDelete = hotelRepository.delete(hotelIdDeleted);
         Assert.assertTrue(resultDelete);
     }
 }
