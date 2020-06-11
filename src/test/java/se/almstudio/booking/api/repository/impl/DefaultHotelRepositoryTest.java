@@ -11,7 +11,7 @@ public class DefaultHotelRepositoryTest {
   private static Long hotelIdCreated;
   private static Long hotelIdRead;
   private static Long hotelIdUpdated;
-  
+
   @AfterClass
   public static void afterClass() {
     DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
@@ -20,6 +20,7 @@ public class DefaultHotelRepositoryTest {
     hotelRepository.delete(hotelIdRead);
     hotelRepository.delete(hotelIdUpdated);
   }
+
 
     @Test
     public void testCreateHotelExpectNoneNullId() {
