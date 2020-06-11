@@ -15,4 +15,4 @@ access to the information of the rooms and hotel.
 * Finding information about hotels and hotels' rooms
 
 ## Data Model
-The data model for this project is available on [LucidChart](https://app.lucidchart.com/documents/view/3c3a94aa-8d50-43a4-8f80-1a158ac76cd3/).
+The data model for this project is available on [LucidChart](https://app.lucidchart.com/documents/view/3c3a94aa-8d50-43a4-8f80-1a158ac76cd3).
