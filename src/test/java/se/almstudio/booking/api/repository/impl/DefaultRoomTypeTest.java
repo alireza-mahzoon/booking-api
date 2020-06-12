@@ -32,8 +32,8 @@ public class DefaultRoomTypeTest {
     RoomType roomType = new RoomType();
     roomType.setHotelId(hotelId);
     roomType.setName("typeOne");
-    roomType.setDescription("fewfwe");
-    roomType.setCapacity(2);
+    roomType.setDescription("oneBed");
+    roomType.setCapacity(1);
     roomType.setRegistered(LocalDateTime.now());
     Long result = roomTypeRepository.create(roomType);
     Assert.assertNotNull(result);
@@ -46,8 +46,8 @@ public class DefaultRoomTypeTest {
     RoomType roomType = new RoomType();
     roomType.setHotelId(hotelId);
     roomType.setName("typeOne");
-    roomType.setDescription("fewfwe");
-    roomType.setCapacity(2);
+    roomType.setDescription("oneBed");
+    roomType.setCapacity(1);
     roomType.setRegistered(LocalDateTime.now());
     Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
     RoomType roomTypeCreated = roomTypeRepository.findById(resultRoomTypeCreated);

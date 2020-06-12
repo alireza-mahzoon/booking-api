@@ -105,4 +105,26 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public boolean delete(Long roomTypeId) {
+    LOGGER.info("Deleting room with roomTypeId={}", roomTypeId);
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try{
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "DELETE FROM RoomType WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, roomTypeId);
+      int result = ps.executeUpdate();
+      LOGGER.debug("roomType with id={} was deleted", roomTypeId);
+      return result == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to delete the room with roomTypeId={}", roomTypeId, e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }

@@ -27,4 +27,12 @@ public interface RoomTypeRepository {
    * @return {@code true} if successful
    */
   boolean update(RoomType roomType);
+
+  /**
+   * Delete roomType by its roomType id
+   *
+   * @param roomTypeId RoomType ID
+   * @return {@code true} if deleted
+   */
+  boolean delete(Long roomTypeId);
 }
