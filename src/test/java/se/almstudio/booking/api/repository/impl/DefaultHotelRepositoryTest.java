@@ -1,85 +1,80 @@
 package se.almstudio.booking.api.repository.impl;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Test;
 import se.almstudio.booking.api.model.entity.Hotel;
 
 import java.time.LocalDateTime;
 
 public class DefaultHotelRepositoryTest {
 
-  private static Long hotelIdDeleted;
-  private static Long hotelIdCreated;
-  private static Long hotelIdRead;
-  private static Long hotelIdUpdated;
+  private Long hotelId;
 
-  @AfterClass
-  public static void afterClass() {
+  @After
+  public void after() {
     DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-    hotelRepository.delete(hotelIdDeleted);
-    hotelRepository.delete(hotelIdCreated);
-    hotelRepository.delete(hotelIdRead);
-    hotelRepository.delete(hotelIdUpdated);
+    hotelRepository.delete(hotelId);
   }
 
+  @Test
+  public void testCreateHotelExpectNoneNullId() {
+    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+    Hotel hotel = new Hotel();
+    hotel.setName("Scandic");
+    hotel.setCity("Stockholm");
+    hotel.setCountry("Sweden");
+    hotel.setAddress("Sundby");
+    hotel.setRegistered(LocalDateTime.now());
+    hotelId = hotelRepository.create(hotel);
+    Assert.assertNotNull(hotelId);
+    Assert.assertNotEquals(0L, hotelId.longValue());
+  }
 
-    @Test
-    public void testCreateHotelExpectNoneNullId() {
-        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-        Hotel hotel = new Hotel();
-        hotel.setName("Scandic");
-        hotel.setCity("Stockholm");
-        hotel.setCountry("Sweden");
-        hotel.setAddress("Sundby");
-        hotel.setRegistered(LocalDateTime.now());
-        hotelIdCreated = hotelRepository.create(hotel);
-        Assert.assertNotNull(hotelIdCreated);
-        Assert.assertNotEquals(0L, hotelIdCreated.longValue());
-    }
+  @Test
+  public void testReadHotelByHotelIdExpectHotel() {
+    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+    Hotel hotel = new Hotel();
+    hotel.setName("Scandic");
+    hotel.setCity("Stockholm");
+    hotel.setCountry("Sweden");
+    hotel.setAddress("Sundby");
+    hotelId = hotelRepository.create(hotel);
+    Hotel resultHotel = hotelRepository.findById(hotelId);
+    Assert.assertEquals(hotel.getName(), resultHotel.getName());
+    Assert.assertEquals(hotel.getCity(), resultHotel.getCity());
+    Assert.assertEquals(hotel.getCountry(), resultHotel.getCountry());
+    Assert.assertEquals(hotel.getAddress(), resultHotel.getAddress());
+  }
 
-    @Test
-    public void testReadHotelByHotelIdExpectHotel() {
-        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-        Hotel hotel = new Hotel();
-        hotel.setName("Scandic");
-        hotel.setCity("Stockholm");
-        hotel.setCountry("Sweden");
-        hotel.setAddress("Sundby");
-        hotelIdRead = hotelRepository.create(hotel);
-        Hotel resultHotel = hotelRepository.findById(hotelIdRead);
-        Assert.assertEquals(hotel.getName(), resultHotel.getName());
-        Assert.assertEquals(hotel.getCity(), resultHotel.getCity());
-        Assert.assertEquals(hotel.getCountry(), resultHotel.getCountry());
-        Assert.assertEquals(hotel.getAddress(), resultHotel.getAddress());
-    }
+  @Test
+  public void testUpdateHotelExpectTrue() {
+    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+    Hotel hotel = new Hotel();
+    hotel.setName("Scandic");
+    hotel.setCity("Stockholm");
+    hotel.setCountry("Sweden");
+    hotel.setAddress("Sundby");
+    hotel.setRegistered(LocalDateTime.now());
+    hotelId = hotelRepository.create(hotel);
+    hotel.setName("Scandic 53");
+    hotel.setId(hotelId);
+    boolean resultUpdate = hotelRepository.update(hotel);
+    Assert.assertTrue(resultUpdate);
+  }
 
-    @Test
-    public void testUpdateHotelExpectTrue() {
-        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-        Hotel hotel = new Hotel();
-        hotel.setName("Scandic");
-        hotel.setCity("Stockholm");
-        hotel.setCountry("Sweden");
-        hotel.setAddress("Sundby");
-        hotel.setRegistered(LocalDateTime.now());
-        hotelIdUpdated = hotelRepository.create(hotel);
-        hotel.setName("Scandic 53");
-        hotel.setId(hotelIdUpdated);
-        boolean resultUpdate = hotelRepository.update(hotel);
-        Assert.assertTrue(resultUpdate);
-    }
+  @Test
+  public void testDeleteHotelByIdExpectTrue() {
+    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+    Hotel hotel = new Hotel();
+    hotel.setName("Scandic");
+    hotel.setCity("Stockholm");
+    hotel.setCountry("Sweden");
+    hotel.setAddress("Sundby");
+    hotel.setRegistered(LocalDateTime.now());
+    hotelId = hotelRepository.create(hotel);
 
-    @Test
-    public void testDeleteHotelByIdExpectTrue() {
-        DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-        Hotel hotel = new Hotel();
-        hotel.setName("Scandic");
-        hotel.setCity("Stockholm");
-        hotel.setCountry("Sweden");
-        hotel.setAddress("Sundby");
-        hotel.setRegistered(LocalDateTime.now());
-        hotelIdDeleted = hotelRepository.create(hotel);
-
-        boolean resultDelete = hotelRepository.delete(hotelIdDeleted);
-        Assert.assertTrue(resultDelete);
-    }
+    boolean resultDelete = hotelRepository.delete(hotelId);
+    Assert.assertTrue(resultDelete);
+  }
 }
