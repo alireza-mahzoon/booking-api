@@ -56,4 +56,22 @@ public class DefaultRoomTypeTest {
     Assert.assertEquals(roomType.getDescription(), roomTypeCreated.getDescription());
     Assert.assertEquals(roomType.getCapacity(), roomTypeCreated.getCapacity());
   }
+
+  @Test
+  public void testUpdateRoomTypeExpectTrue() {
+    DefaultRoomTypeRepository roomTypeRepository = new DefaultRoomTypeRepository();
+    RoomType roomType = new RoomType();
+    roomType.setHotelId(hotelId);
+    roomType.setName("typeOne");
+    roomType.setDescription("oneBed");
+    roomType.setCapacity(1);
+    roomType.setRegistered(LocalDateTime.now());
+    Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
+    roomType.setName("typeTwo");
+    roomType.setDescription("twoBed");
+    roomType.setCapacity(2);
+    roomType.setId(resultRoomTypeCreated);
+    boolean resultUpdate = roomTypeRepository.update(roomType);
+    Assert.assertTrue(resultUpdate);
+  }
 }
