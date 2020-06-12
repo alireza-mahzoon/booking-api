@@ -7,9 +7,10 @@ import se.almstudio.booking.api.repository.RoomTypeRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
 
-
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DefaultRoomTypeRepository implements RoomTypeRepository {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomTypeRepository.class);
@@ -41,6 +42,41 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
     } finally {
       ConnectionUtils.closeQuietly(ps);
       ConnectionUtils.closeQuietly(connection);
+    }
+  }
+
+  @Override
+  public RoomType findById(Long roomTypeId) {
+    LOGGER.info("Finding roomType with Id={}", roomTypeId);
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "SELECT *  FROM RoomType WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, roomTypeId);
+      ps.execute();
+      rs = ps.getResultSet();
+      if (rs.next()) {
+        RoomType roomType = new RoomType();
+        roomType.setId(roomTypeId);
+        roomType.setHotelId(rs.getLong("hotelId"));
+        roomType.setName(rs.getString("name"));
+        roomType.setDescription(rs.getNString("description"));
+        roomType.setCapacity(rs.getInt("capacity"));
+        roomType.setRegistered(rs.getObject("registered", LocalDateTime.class));
+        LOGGER.debug("RoomType was found with roomTypeId={}", roomTypeId);
+        return roomType;
+      }
+      return null;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to find the roomType", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(rs);
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection)
     }
   }
 }
