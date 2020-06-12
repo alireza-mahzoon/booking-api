@@ -103,7 +103,8 @@ public class DefaultHotelRepository implements HotelRepository {
   }
 
   @Override
-  public boolean delete(Long id) { LOGGER.info("Deleting hotel with hotelId={}", id);
+  public boolean delete(Long id) {
+    LOGGER.info("Deleting hotel with hotelId={}", id);
     Connection connection = null;
     PreparedStatement ps = null;
     try {

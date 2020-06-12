@@ -1,30 +1,30 @@
-CREATE TABLE Hotel (
-    Id BIGSERIAL PRIMARY KEY,
+create table Hotel (
+    Id bigserial primary key,
     Name TEXT NOT NULL,
-    Address TEXT NOT NULL,
-    City TEXT NOT NULL,
-    Country TEXT NOT NULL,
-    Registered TIMESTAMP NOT NULL
+    Address text not null,
+    City text not null,
+    Country text not null,
+    Registered timestamp not null
 );
 
-CREATE TABLE Room (
-    Id BIGSERIAL PRIMARY KEY,
-    HotelId BIGINT REFERENCES hotel (id),
-    Number INT NOT NULL,
-    PhoneNumber TEXT NOT NULL,
-    Floor INT NOT NULL,
-    NumberOfGuests INT NOT NULL,
-    Registered TIMESTAMP NOT NULL
+create table Room (
+    Id bigserial primary key,
+    HotelId bigint references hotel (id),
+    Number int not null,
+    PhoneNumber text not null,
+    Floor int not null,
+    NumberOfGuests int not null,
+    Registered timestamp not null
 );
 
-CREATE TABLE RoomType (
-    Id BIGSERIAL PRIMARY KEY,
-    HotelId BIGINT REFERENCES hotel (id),
+create table RoomType (
+    Id bigserial primary key,
+    HotelId bigint references hotel (id),
     Name TEXT NOT NULL,
-    Description TEXT NOT NULL,
-    Capacity INT NOT NULL,
-    Registered TIMESTAMP NOT NULL,
-    Updated TIMESTAMP NOT NULL
+    Description text not null,
+    Capacity int not null,
+    Registered timestamp not null,
+    Updated timestamp not null
 );
 
 

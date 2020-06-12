@@ -9,8 +9,6 @@ import se.almstudio.booking.api.util.impl.ConnectionUtils;
 
 import java.sql.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DefaultRoomTypeRepository implements RoomTypeRepository {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomTypeRepository.class);
@@ -25,14 +23,14 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
       String query = "INSERT INTO RoomType(HotelId, Name, Description, Capacity, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setLong(1, roomtype.getHotelId());
-      ps.setString  (2, roomtype.getName());
+      ps.setString(2, roomtype.getName());
       ps.setString(3, roomtype.getDescription());
       ps.setInt(4, roomtype.getCapacity());
       ps.setObject(5, LocalDateTime.now());
       ps.setObject(6, LocalDateTime.now());
       ps.executeUpdate();
-      if(ps.getGeneratedKeys().next()) {
-        LOGGER.debug("RoomType was created, the roomType information is: name: {}",roomtype.getName());
+      if (ps.getGeneratedKeys().next()) {
+        LOGGER.debug("RoomType was created, the roomType information is: name: {}", roomtype.getName());
         return ps.getGeneratedKeys().getLong(1);
       }
       return null;
@@ -89,14 +87,14 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
       connection = ConnectionManager.INSTANCE.getConnection();
       String query = "UPDATE RoomType SET HotelId=?, Name=?, Description=?, Capacity=? WHERE id=?";
       ps = connection.prepareStatement(query);
-      ps.setLong(1,roomType.getHotelId());
+      ps.setLong(1, roomType.getHotelId());
       ps.setString(2, roomType.getName());
       ps.setString(3, roomType.getDescription());
       ps.setInt(4, roomType.getCapacity());
       ps.setLong(5, roomType.getId());
       int resultUpdated = ps.executeUpdate();
       LOGGER.debug("{} room with id={} was updated", resultUpdated, roomType.getId());
-      return  resultUpdated == 1;
+      return resultUpdated == 1;
     } catch (SQLException e) {
       LOGGER.warn("Failed to update the roomType", e);
       throw new RuntimeException(e);
@@ -111,7 +109,7 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
     LOGGER.info("Deleting room with roomTypeId={}", roomTypeId);
     Connection connection = null;
     PreparedStatement ps = null;
-    try{
+    try {
       connection = ConnectionManager.INSTANCE.getConnection();
       String query = "DELETE FROM RoomType WHERE id=?";
       ps = connection.prepareStatement(query);
