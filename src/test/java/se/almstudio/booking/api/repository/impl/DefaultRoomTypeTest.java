@@ -74,4 +74,19 @@ public class DefaultRoomTypeTest {
     boolean resultUpdate = roomTypeRepository.update(roomType);
     Assert.assertTrue(resultUpdate);
   }
+
+  @Test
+  public void testDeleteRoomTypeExpectTrue() {
+    DefaultRoomTypeRepository roomTypeRepository = new DefaultRoomTypeRepository();
+    RoomType roomType = new RoomType();
+    roomType.setHotelId(hotelId);
+    roomType.setName("typeOne");
+    roomType.setDescription("oneBed");
+    roomType.setCapacity(1);
+    roomType.setRegistered(LocalDateTime.now());
+    Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
+    boolean resultDelete = roomTypeRepository.delete(resultRoomTypeCreated);
+    Assert.assertTrue(resultDelete);
+  }
+
 }

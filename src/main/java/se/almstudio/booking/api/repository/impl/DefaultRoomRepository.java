@@ -128,7 +128,6 @@ public class DefaultRoomRepository implements RoomRepository {
             ConnectionUtils.closeQuietly(ps);
             ConnectionUtils.closeQuietly(connection);
         }
-
     }
 
     @Override
