@@ -17,3 +17,14 @@ CREATE TABLE Room (
     Registered TIMESTAMP NOT NULL
 );
 
+CREATE TABLE RoomType (
+    Id BIGSERIAL PRIMARY KEY,
+    HotelId BIGINT REFERENCES hotel (id),
+    Name TEXT NOT NULL,
+    Description TEXT NOT NULL,
+    Capacity INT NOT NULL,
+    Registered TIMESTAMP NOT NULL
+);
+
+
+
