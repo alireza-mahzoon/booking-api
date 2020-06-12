@@ -82,7 +82,7 @@ public class DefaultRoomRepositoryTest {
     room.setNumberOfGuest(5);
     room.setId(roomId);
     boolean resultUpdate = roomRepository.update(room);
-    Assert.assertTrue(resultUpdate);
+    Assert.assertFalse(resultUpdate);
   }
 
   @Test
