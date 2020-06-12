@@ -21,13 +21,14 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "INSERT INTO RoomType(HotelId, Name, Description, Capacity, Registered) VALUES(?,?,?,?,?)";
+      String query = "INSERT INTO RoomType(HotelId, Name, Description, Capacity, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setLong(1, roomtype.getHotelId());
       ps.setString  (2, roomtype.getName());
       ps.setString(3, roomtype.getDescription());
       ps.setInt(4, roomtype.getCapacity());
       ps.setObject(5, LocalDateTime.now());
+      ps.setObject(6, LocalDateTime.now());
       ps.executeUpdate();
       if(ps.getGeneratedKeys().next()) {
         LOGGER.debug("RoomType was created, the roomType information is: name: {}",roomtype.getName());

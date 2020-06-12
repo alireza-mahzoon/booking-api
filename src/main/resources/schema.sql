@@ -23,7 +23,8 @@ CREATE TABLE RoomType (
     Name TEXT NOT NULL,
     Description TEXT NOT NULL,
     Capacity INT NOT NULL,
-    Registered TIMESTAMP NOT NULL
+    Registered TIMESTAMP NOT NULL,
+    Updated TIMESTAMP NOT NULL
 );
 
 

@@ -9,6 +9,15 @@ public class RoomType {
   private String description;
   private int capacity;
   private LocalDateTime Registered;
+  private LocalDateTime Updated;
+
+  public void setUpdated(LocalDateTime updated) {
+    Updated = updated;
+  }
+
+  public LocalDateTime getUpdated() {
+    return Updated;
+  }
 
   public Long getId() {
     return id;
