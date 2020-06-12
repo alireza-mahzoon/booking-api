@@ -79,4 +79,30 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public boolean update(RoomType roomType) {
+    LOGGER.info("Updating a roomType information");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "UPDATE RoomType SET HotelId=?, Name=?, Description=?, Capacity=? WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1,roomType.getHotelId());
+      ps.setString(2, roomType.getName());
+      ps.setString(3, roomType.getDescription());
+      ps.setInt(4, roomType.getCapacity());
+      ps.setLong(5, roomType.getId());
+      int resultUpdated = ps.executeUpdate();
+      LOGGER.debug("{} room with id={} was updated", resultUpdated, roomType.getId());
+      return  resultUpdated == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to update the roomType", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }

@@ -19,4 +19,12 @@ public interface RoomTypeRepository {
    * @return RoomType if found, {@code null} if not found
    */
   RoomType findById(Long roomTypeId);
+
+  /**
+   * Update roomType information
+   *
+   * @param roomType RoomType to update
+   * @return {@code true} if successful
+   */
+  boolean update(RoomType roomType);
 }
