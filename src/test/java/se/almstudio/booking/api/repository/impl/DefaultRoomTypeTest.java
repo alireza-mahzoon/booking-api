@@ -4,6 +4,7 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import se.almstudio.booking.api.model.entity.Hotel;
 import se.almstudio.booking.api.model.entity.RoomType;
 
@@ -37,5 +38,22 @@ public class DefaultRoomTypeTest {
     Long result = roomTypeRepository.create(roomType);
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
+  }
+
+  @Test
+  public void testReadRoomTypeByIdExpectRoomType() {
+    DefaultRoomTypeRepository roomTypeRepository = new DefaultRoomTypeRepository();
+    RoomType roomType = new RoomType();
+    roomType.setHotelId(hotelId);
+    roomType.setName("typeOne");
+    roomType.setDescription("fewfwe");
+    roomType.setCapacity(2);
+    roomType.setRegistered(LocalDateTime.now());
+    Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
+    RoomType roomTypeCreated = roomTypeRepository.findById(resultRoomTypeCreated);
+    Assert.assertEquals(roomType.getHotelId(), roomTypeCreated.getHotelId());
+    Assert.assertEquals(roomType.getName(), roomTypeCreated.getName());
+    Assert.assertEquals(roomType.getDescription(), roomTypeCreated.getDescription());
+    Assert.assertEquals(roomType.getCapacity(), roomTypeCreated.getCapacity());
   }
 }

@@ -63,7 +63,7 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
         roomType.setId(roomTypeId);
         roomType.setHotelId(rs.getLong("hotelId"));
         roomType.setName(rs.getString("name"));
-        roomType.setDescription(rs.getNString("description"));
+        roomType.setDescription(rs.getString("description"));
         roomType.setCapacity(rs.getInt("capacity"));
         roomType.setRegistered(rs.getObject("registered", LocalDateTime.class));
         LOGGER.debug("RoomType was found with roomTypeId={}", roomTypeId);
@@ -76,7 +76,7 @@ public class DefaultRoomTypeRepository implements RoomTypeRepository {
     } finally {
       ConnectionUtils.closeQuietly(rs);
       ConnectionUtils.closeQuietly(ps);
-      ConnectionUtils.closeQuietly(connection)
+      ConnectionUtils.closeQuietly(connection);
     }
   }
 }
