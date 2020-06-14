@@ -27,5 +27,14 @@ create table RoomType (
     Updated timestamp not null
 );
 
+create table HotelAmenities (
+    Id bigserial primary key,
+    HotelId bigint references hotel (id),
+    Name TEXT not null,
+    Description TEXT not null,
+    Pricing TEXT not null,
+    Registered timestamp not null,
+    Updated timestamp not null,
+);
 
 
