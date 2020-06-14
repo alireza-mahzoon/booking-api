@@ -7,10 +7,10 @@ public interface RoomTypeRepository {
   /**
    * Create a new RoomType
    *
-   * @param roomtype RoomType information
+   * @param roomType RoomType information
    * @return Id for the persisted roomType
    */
-  Long create(RoomType roomtype);
+  Long create(RoomType roomType);
 
   /**
    * Find a roomType by its id
