@@ -5,10 +5,10 @@ import se.almstudio.booking.api.model.entity.HotelAmenities;
 public interface HotelAmenitiesRepository {
 
   /**
-   * Create a new HotelAmenity
+   * Create a new hotelAmenities
    *
-   * @param hotelAmenity HotelAmenity information
-   * @return Id for the persisted hotelAmenity
+   * @param hotelAmenities HotelAmenities information
+   * @return Id for the persisted hotelAmenities
    */
-  Long create(HotelAmenities hotelAmenity);
+  Long create(HotelAmenities hotelAmenities);
 }

@@ -35,6 +35,6 @@ create table HotelAmenities (
     Pricing TEXT not null,
     Registered timestamp not null,
     Updated timestamp not null,
-);
+)
 
 

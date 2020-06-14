@@ -11,16 +11,16 @@ import java.sql.*;
 import java.time.LocalDateTime;
 
 public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository {
-  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelRepository.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelAmenitiesRepository.class);
 
   @Override
-  public Long create(HotelAmenities hotelAmenities){
-    LOGGER.info("Creating a hotel amenity");
+  public Long create(HotelAmenities hotelAmenities) {
+    LOGGER.info("Creating a hotelAmenities");
     Connection connection = null;
     PreparedStatement ps = null;
     try {
-      connection = ConnectionManager .INSTANCE.getConnection();
-      String query = "INSERT INTO HOTELAMENITIES(HotelId, Name, Description, Pricing, Registered, Updated) VALUES(?,?,?,?,?,?)";
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "INSERT INTO HotelAmenities(HotelId, Name, Description, Pricing, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setLong(1, hotelAmenities.getHotelId());
       ps.setString(2, hotelAmenities.getName());
@@ -30,19 +30,17 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
       ps.setObject(6, LocalDateTime.now());
       ps.executeUpdate();
       if (ps.getGeneratedKeys().next()) {
-        LOGGER.debug("Hotelamenities was created");
+        LOGGER.debug("HotelAmenities was created, the hotelAmenities information is: name: {}", hotelAmenities.getName());
         return ps.getGeneratedKeys().getLong(1);
       }
+
       return null;
     } catch (SQLException e) {
-      LOGGER.warn("Failed to create a hotel", e);
+      LOGGER.warn("Failed to create hotelAmenities", e);
       throw new RuntimeException(e);
     } finally {
       ConnectionUtils.closeQuietly(ps);
-      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
     }
   }
 }
-
-
-
