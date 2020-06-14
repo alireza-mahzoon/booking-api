@@ -11,4 +11,16 @@ public interface HotelAmenitiesRepository {
    * @return Id for the persisted hotelAmenities
    */
   Long create(HotelAmenities hotelAmenities);
+
+  /**
+   * Find a hotelAmenity by its id
+   *
+   * @param hotelAmenitiesId hotelAmenity ID
+   * @return hotelAmenity if found, {@code null} if not found
+   */
+  HotelAmenities findById(Long hotelAmenitiesId);
 }
+
+
+
+

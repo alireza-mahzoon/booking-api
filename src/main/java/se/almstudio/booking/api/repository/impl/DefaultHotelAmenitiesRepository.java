@@ -3,6 +3,7 @@ package se.almstudio.booking.api.repository.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.almstudio.booking.api.model.entity.HotelAmenities;
+import se.almstudio.booking.api.model.entity.RoomType;
 import se.almstudio.booking.api.repository.HotelAmenitiesRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
@@ -39,6 +40,41 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
       LOGGER.warn("Failed to create hotelAmenities", e);
       throw new RuntimeException(e);
     } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
+
+  @Override
+  public HotelAmenities findById(Long hotelAmenitiesId) {
+    LOGGER.info("Finding hotelAmenities with Id={}", hotelAmenitiesId);
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "SELECT *  FROM HotelAmenities WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, hotelAmenitiesId);
+      ps.execute();
+      rs = ps.getResultSet();
+      if (rs.next()) {
+        HotelAmenities hotelAmenities = new HotelAmenities();
+        hotelAmenities.setId(hotelAmenitiesId);
+        hotelAmenities.setHotelId(rs.getLong("hotelId"));
+        hotelAmenities.setName(rs.getString("name"));
+        hotelAmenities.setDescription(rs.getString("description"));
+        hotelAmenities.setPricing(rs.getString("pricing"));
+        hotelAmenities.setRegistered(rs.getObject("registered", LocalDateTime.class));
+        LOGGER.debug("HotelAmenities was found with hotelAmenitiesId={}", hotelAmenitiesId);
+        return hotelAmenities;
+      }
+      return null;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to find the hotelAmenities", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(rs);
       ConnectionUtils.closeQuietly(ps);
       ConnectionUtils.closeQuietly(connection);
     }
