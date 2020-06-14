@@ -38,4 +38,20 @@ public class DefaultHotelAmenitiesRepositoryTest {
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
   }
+
+  @Test
+  public void testReadHotelAmenitiesByIdExpectHotelAmenities() {
+    DefaultHotelAmenitiesRepository HotelAmenitiesRepository = new DefaultHotelAmenitiesRepository();
+    HotelAmenities hotelAmenity = new HotelAmenities();
+    hotelAmenity.setHotelId(hotelId);
+    hotelAmenity.setName("Swimming pool");
+    hotelAmenity.setDescription("Summer time");
+    hotelAmenity.setPricing("200 SEK");
+    hotelAmenity.setRegistered(LocalDateTime.now());
+    Long resultHotelAmenitiesCreated = HotelAmenitiesRepository.create(hotelAmenity);
+    HotelAmenities hotelAmenitiesCreated = HotelAmenitiesRepository.findById(resultHotelAmenitiesCreated);
+    Assert.assertEquals(hotelAmenity.getHotelId(), hotelAmenitiesCreated.getHotelId());
+    Assert.assertEquals(hotelAmenity.getName(), hotelAmenitiesCreated.getName());
+    Assert.assertEquals(hotelAmenity.getDescription(), hotelAmenitiesCreated.getDescription());
+  }
 }
