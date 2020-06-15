@@ -2,6 +2,7 @@ package se.almstudio.booking.api.repository.impl;
 
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import se.almstudio.booking.api.model.entity.Hotel;
 
@@ -9,7 +10,7 @@ import java.time.LocalDateTime;
 
 public class DefaultHotelRepositoryTest {
 
-  private Long hotelId;
+  private static Long hotelId;
 
   @Test
   public void testCreateHotelExpectNoneNullId() {

@@ -24,13 +24,13 @@ public class DefaultRoomRepositoryTest {
     hotelId = hotelRepository.create(hotel);
   }
 
-  @AfterClass
-  public static void afterClass() {
-    DefaultRoomRepository roomRepository = new DefaultRoomRepository();
-    roomRepository.deleteRoomByHotelID(hotelId);
-    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-    hotelRepository.delete(hotelId);
-  }
+  //@AfterClass
+  //public static void afterClass() {
+  //  DefaultRoomRepository roomRepository = new DefaultRoomRepository();
+  //  roomRepository.deleteRoomByHotelID(hotelId);
+  //  DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
+  //  hotelRepository.delete(hotelId);
+  //}
 
   @Test
   public void testCreateRoomExpectNoneNullId() {
