@@ -34,6 +34,7 @@ public class DefaultRoomTypeTest {
     roomType.setDescription("oneBed");
     roomType.setCapacity(1);
     roomType.setRegistered(LocalDateTime.now());
+    roomType.setUpdated(LocalDateTime.now());
     Long result = roomTypeRepository.create(roomType);
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
@@ -48,6 +49,7 @@ public class DefaultRoomTypeTest {
     roomType.setDescription("oneBed");
     roomType.setCapacity(1);
     roomType.setRegistered(LocalDateTime.now());
+    roomType.setUpdated(LocalDateTime.now());
     Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
     RoomType roomTypeCreated = roomTypeRepository.findById(resultRoomTypeCreated);
     Assert.assertEquals(roomType.getHotelId(), roomTypeCreated.getHotelId());
@@ -65,6 +67,7 @@ public class DefaultRoomTypeTest {
     roomType.setDescription("oneBed");
     roomType.setCapacity(1);
     roomType.setRegistered(LocalDateTime.now());
+    roomType.setUpdated(LocalDateTime.now());
     Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
     roomType.setName("typeTwo");
     roomType.setDescription("twoBed");
@@ -83,6 +86,7 @@ public class DefaultRoomTypeTest {
     roomType.setDescription("oneBed");
     roomType.setCapacity(1);
     roomType.setRegistered(LocalDateTime.now());
+    roomType.setUpdated(LocalDateTime.now());
     Long resultRoomTypeCreated = roomTypeRepository.create(roomType);
     boolean resultDelete = roomTypeRepository.delete(resultRoomTypeCreated);
     Assert.assertTrue(resultDelete);

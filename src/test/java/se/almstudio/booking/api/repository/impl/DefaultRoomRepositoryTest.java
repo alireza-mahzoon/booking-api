@@ -21,6 +21,7 @@ public class DefaultRoomRepositoryTest {
     hotel.setCountry("Sweden");
     hotel.setAddress("Sundby");
     hotel.setRegistered(LocalDateTime.now());
+    hotel.setUpdated(LocalDateTime.now());
     hotelId = hotelRepository.create(hotel);
   }
 
@@ -42,6 +43,7 @@ public class DefaultRoomRepositoryTest {
     room.setFloor(25);
     room.setNumberOfGuest(4);
     room.setRegistered(LocalDateTime.now());
+    room.setUpdated(LocalDateTime.now());
     Long result = roomRepository.create(room);
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
@@ -75,6 +77,7 @@ public class DefaultRoomRepositoryTest {
     room.setFloor(25);
     room.setNumberOfGuest(4);
     room.setRegistered(LocalDateTime.now());
+    room.setUpdated(LocalDateTime.now());
     Long roomId = roomRepository.create(room);
     room.setNumber(88);
     room.setPhoneNumber("631826");
@@ -95,6 +98,7 @@ public class DefaultRoomRepositoryTest {
     room.setFloor(25);
     room.setNumberOfGuest(4);
     room.setRegistered(LocalDateTime.now());
+    room.setUpdated(LocalDateTime.now());
     Long roomId = roomRepository.create(room);
     boolean resultDelete = roomRepository.delete(roomId);
     Assert.assertTrue(resultDelete);

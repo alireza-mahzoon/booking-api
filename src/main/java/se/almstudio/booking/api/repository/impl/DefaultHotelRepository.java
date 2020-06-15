@@ -20,13 +20,14 @@ public class DefaultHotelRepository implements HotelRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "INSERT INTO Hotel(Name, Address, City, Country, Registered) VALUES(?,?,?,?,?)";
+      String query = "INSERT INTO Hotel(Name, Address, City, Country, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, hotel.getName());
       ps.setString(2, hotel.getAddress());
       ps.setString(3, hotel.getCity());
       ps.setString(4, hotel.getCountry());
       ps.setObject(5, LocalDateTime.now());
+      ps.setObject(6, LocalDateTime.now());
       ps.executeUpdate();
       if (ps.getGeneratedKeys().next()) {
         LOGGER.debug("Hotel was created, the hotel information is: name: {}, address: {}, city: {}, country: {}", hotel.getName(), hotel.getAddress(), hotel.getCity(), hotel.getCountry());

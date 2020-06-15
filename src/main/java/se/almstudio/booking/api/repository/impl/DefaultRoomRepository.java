@@ -22,7 +22,7 @@ public class DefaultRoomRepository implements RoomRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "INSERT INTO Room(HotelId, Number, PhoneNumber, Floor, NumberOfGuests, Registered) VALUES(?,?,?,?,?,?)";
+      String query = "INSERT INTO Room(HotelId, Number, PhoneNumber, Floor, NumberOfGuests, Registered, Updated) VALUES(?,?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setLong(1, room.getHotelId());
       ps.setInt(2, room.getNumber());
@@ -30,6 +30,7 @@ public class DefaultRoomRepository implements RoomRepository {
       ps.setInt(4, room.getFloor());
       ps.setInt(5, room.getNumberOfGuest());
       ps.setObject(6, LocalDateTime.now());
+      ps.setObject(7, LocalDateTime.now());
       ps.executeUpdate();
       if (ps.getGeneratedKeys().next()) {
         LOGGER.debug("Room was created, the room is in the hotel with hotelId={}, the room information is: number: {}, phoneNUmber: {}, floor: {}, numberOfGuests: {}", room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());

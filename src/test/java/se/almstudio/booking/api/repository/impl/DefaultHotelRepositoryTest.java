@@ -21,6 +21,7 @@ public class DefaultHotelRepositoryTest {
     hotel.setCountry("Sweden");
     hotel.setAddress("Sundby");
     hotel.setRegistered(LocalDateTime.now());
+    hotel.setUpdated(LocalDateTime.now());
     hotelId = hotelRepository.create(hotel);
     Assert.assertNotNull(hotelId);
     Assert.assertNotEquals(0L, hotelId.longValue());
@@ -51,6 +52,7 @@ public class DefaultHotelRepositoryTest {
     hotel.setCountry("Sweden");
     hotel.setAddress("Sundby");
     hotel.setRegistered(LocalDateTime.now());
+    hotel.setUpdated(LocalDateTime.now());
     hotelId = hotelRepository.create(hotel);
     hotel.setName("Scandic 53");
     hotel.setId(hotelId);
@@ -67,6 +69,7 @@ public class DefaultHotelRepositoryTest {
     hotel.setCountry("Sweden");
     hotel.setAddress("Sundby");
     hotel.setRegistered(LocalDateTime.now());
+    hotel.setUpdated(LocalDateTime.now());
     hotelId = hotelRepository.create(hotel);
 
     boolean resultDelete = hotelRepository.delete(hotelId);
