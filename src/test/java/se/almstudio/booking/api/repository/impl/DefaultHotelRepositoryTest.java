@@ -11,12 +11,6 @@ public class DefaultHotelRepositoryTest {
 
   private Long hotelId;
 
-  @After
-  public void after() {
-    DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
-    hotelRepository.delete(hotelId);
-  }
-
   @Test
   public void testCreateHotelExpectNoneNullId() {
     DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
