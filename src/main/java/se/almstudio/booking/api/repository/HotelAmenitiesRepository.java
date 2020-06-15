@@ -1,6 +1,7 @@
 package se.almstudio.booking.api.repository;
 
 import se.almstudio.booking.api.model.entity.HotelAmenities;
+import se.almstudio.booking.api.model.entity.RoomType;
 
 public interface HotelAmenitiesRepository {
 
@@ -19,6 +20,14 @@ public interface HotelAmenitiesRepository {
    * @return hotelAmenity if found, {@code null} if not found
    */
   HotelAmenities findById(Long hotelAmenitiesId);
+
+  /**
+   * Update hotelAmenities information
+   *
+   * @param hotelAmenities HotelAmenities to update
+   * @return {@code true} if successful
+   */
+  boolean update(HotelAmenities hotelAmenities);
 }
 
 

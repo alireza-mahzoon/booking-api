@@ -78,4 +78,30 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
     }
   }
 
+  @Override
+  public boolean update(HotelAmenities hotelAmenities) {
+    LOGGER.info("Updating a hotelAmenities information");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "UPDATE HotelAmenities SET HotelId=?, Name=?, Description=?, Pricing=? WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, hotelAmenities.getHotelId());
+      ps.setString(2, hotelAmenities.getName());
+      ps.setString(3, hotelAmenities.getDescription());
+      ps.setString(4, hotelAmenities.getPricing());
+      ps.setLong(5, hotelAmenities.getId());
+      int resultUpdated = ps.executeUpdate();
+      LOGGER.debug("{} hotelAmenity with id={} was updated", resultUpdated, hotelAmenities.getId());
+      return resultUpdated == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to update the hotelAmenities", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
+
 }
