@@ -51,10 +51,10 @@ public class DefaultHotelAmenitiesRepositoryTest {
     hotelAmenities.setRegistered(LocalDateTime.now());
     hotelAmenities.setUpdated(LocalDateTime.now());
     Long resultHotelAmenitiesCreated = hotelAmenitiesRepository.create(hotelAmenities);
-    HotelAmenities roomTypeCreated = hotelAmenitiesRepository.findById(resultHotelAmenitiesCreated);
-    Assert.assertEquals(hotelAmenities.getHotelId(), roomTypeCreated.getHotelId());
-    Assert.assertEquals(hotelAmenities.getName(), roomTypeCreated.getName());
-    Assert.assertEquals(hotelAmenities.getDescription(), roomTypeCreated.getDescription());
-    Assert.assertEquals(hotelAmenities.getPricing(), roomTypeCreated.getPricing());
+    HotelAmenities hotelAmenitiesCreated = hotelAmenitiesRepository.findById(resultHotelAmenitiesCreated);
+    Assert.assertEquals(hotelAmenities.getHotelId(), hotelAmenitiesCreated.getHotelId());
+    Assert.assertEquals(hotelAmenities.getName(), hotelAmenitiesCreated.getName());
+    Assert.assertEquals(hotelAmenities.getDescription(), hotelAmenitiesCreated.getDescription());
+    Assert.assertEquals(hotelAmenities.getPricing(), hotelAmenitiesCreated.getPricing());
   }
 }
