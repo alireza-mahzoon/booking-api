@@ -104,4 +104,25 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
     }
   }
 
+  @Override
+  public boolean delete(Long hotelAmenitiesId) {
+    LOGGER.info("Deleting hotelAmenity with hotelAmenitiesId)={}", hotelAmenitiesId);
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "DELETE FROM HotelAmenities WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, hotelAmenitiesId);
+      int result = ps.executeUpdate();
+      LOGGER.debug("hotelAmenities with id={} was deleted", hotelAmenitiesId);
+      return result == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to delete the room with hotelAmenitiesId={}", hotelAmenitiesId, e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }

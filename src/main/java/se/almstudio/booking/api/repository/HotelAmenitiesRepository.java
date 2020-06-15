@@ -28,6 +28,14 @@ public interface HotelAmenitiesRepository {
    * @return {@code true} if successful
    */
   boolean update(HotelAmenities hotelAmenities);
+
+  /**
+   * Delete hotelAmenity by its hotelAmenity id
+   *
+   * @param hotelAmenityId HotelAmenity ID
+   * @return {@code true} if deleted
+   */
+  boolean delete(Long hotelAmenityId);
 }
 
 
