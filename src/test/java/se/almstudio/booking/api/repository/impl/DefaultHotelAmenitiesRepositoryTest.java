@@ -77,4 +77,19 @@ public class DefaultHotelAmenitiesRepositoryTest {
     boolean resultUpdate = hotelAmenitiesRepository.update(hotelAmenities);
     Assert.assertTrue(resultUpdate);
   }
+
+  @Test
+  public void testDeleteHotelAmenitiesExpectTrue() {
+    DefaultHotelAmenitiesRepository hotelAmenitiesRepository = new DefaultHotelAmenitiesRepository();
+    HotelAmenities hotelAmenities = new HotelAmenities();
+    hotelAmenities.setHotelId(hotelId);
+    hotelAmenities.setName("Library");
+    hotelAmenities.setDescription("Open from 10 AM to 4 PM");
+    hotelAmenities.setPricing("Free");
+    hotelAmenities.setRegistered(LocalDateTime.now());
+    hotelAmenities.setUpdated(LocalDateTime.now());
+    Long resultHotelAmenitiesCreated = hotelAmenitiesRepository.create(hotelAmenities);
+    boolean resultDelete = hotelAmenitiesRepository.delete(resultHotelAmenitiesCreated);
+    Assert.assertTrue(resultDelete);
+  }
 }
