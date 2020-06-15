@@ -1,6 +1,5 @@
 package se.almstudio.booking.api.repository.impl;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -39,5 +38,23 @@ public class DefaultHotelAmenitiesRepositoryTest {
     Long result = hotelAmenitiesRepository.create(hotelAmenities);
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
+  }
+
+  @Test
+  public void testReadHotelAmenitiesByIdExpectHotelAmenities() {
+    DefaultHotelAmenitiesRepository hotelAmenitiesRepository = new DefaultHotelAmenitiesRepository();
+    HotelAmenities hotelAmenities = new HotelAmenities();
+    hotelAmenities.setHotelId(hotelId);
+    hotelAmenities.setName("Library");
+    hotelAmenities.setDescription("Open from 10 AM to 4 PM");
+    hotelAmenities.setPricing("Free");
+    hotelAmenities.setRegistered(LocalDateTime.now());
+    hotelAmenities.setUpdated(LocalDateTime.now());
+    Long resultHotelAmenitiesCreated = hotelAmenitiesRepository.create(hotelAmenities);
+    HotelAmenities roomTypeCreated = hotelAmenitiesRepository.findById(resultHotelAmenitiesCreated);
+    Assert.assertEquals(hotelAmenities.getHotelId(), roomTypeCreated.getHotelId());
+    Assert.assertEquals(hotelAmenities.getName(), roomTypeCreated.getName());
+    Assert.assertEquals(hotelAmenities.getDescription(), roomTypeCreated.getDescription());
+    Assert.assertEquals(hotelAmenities.getPricing(), roomTypeCreated.getPricing());
   }
 }
