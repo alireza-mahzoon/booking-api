@@ -37,6 +37,15 @@ create table HotelAmenities (
     Pricing TEXT not null,
     Registered timestamp not null,
     Updated timestamp not null
-)
+);
 
+create table "User" (
+    Id bigserial primary key,
+    FirstName TEXT not null,
+    LastName TEXT not null,
+    Birthday DATE not null,
+    Email TEXT not null,
+    Registered timestamp not null,
+    Updated timestamp not null
+)
 
