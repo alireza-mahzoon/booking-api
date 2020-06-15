@@ -4,7 +4,8 @@ create table Hotel (
     Address text not null,
     City text not null,
     Country text not null,
-    Registered timestamp not null
+    Registered timestamp not null,
+    Updated timestamp not null
 );
 
 create table Room (
@@ -14,7 +15,8 @@ create table Room (
     PhoneNumber text not null,
     Floor int not null,
     NumberOfGuests int not null,
-    Registered timestamp not null
+    Registered timestamp not null,
+    Updated timestamp not null
 );
 
 create table RoomType (
@@ -34,7 +36,7 @@ create table HotelAmenities (
     Description TEXT not null,
     Pricing TEXT not null,
     Registered timestamp not null,
-    Updated timestamp not null,
+    Updated timestamp not null
 )
 
 
