@@ -3,7 +3,6 @@ package se.almstudio.booking.api.repository.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.almstudio.booking.api.model.entity.HotelAmenities;
-import se.almstudio.booking.api.model.entity.RoomType;
 import se.almstudio.booking.api.repository.HotelAmenitiesRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
@@ -52,7 +51,7 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
     ResultSet rs = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "SELECT *  FROM RoomType WHERE id=?";
+      String query = "SELECT *  FROM HotelAmenities WHERE id=?";
       ps = connection.prepareStatement(query);
       ps.setLong(1, hotelAmenitiesId);
       ps.execute();
@@ -65,7 +64,7 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
         hotelAmenities.setDescription(rs.getString("description"));
         hotelAmenities.setPricing(rs.getString("pricing"));
         hotelAmenities.setRegistered(rs.getObject("registered", LocalDateTime.class));
-        LOGGER.debug("RoomType was found with hotelAmenitiesId={}", hotelAmenitiesId;
+        LOGGER.debug("HotelAmenities was found with hotelAmenitiesId={}", hotelAmenitiesId);
         return hotelAmenities;
       }
       return null;
@@ -78,5 +77,5 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
       ConnectionUtils.closeQuietly(connection);
     }
   }
-  
+
 }
