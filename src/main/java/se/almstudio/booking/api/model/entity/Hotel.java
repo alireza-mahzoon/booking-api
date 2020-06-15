@@ -9,6 +9,15 @@ public class Hotel {
   private String city;
   private String country;
   private LocalDateTime registered;
+  private LocalDateTime updated;
+
+  public void setUpdated(LocalDateTime updated) {
+    this.updated = updated;
+  }
+
+  public LocalDateTime getUpdated() {
+    return updated;
+  }
 
   public Long getId() {
     return id;

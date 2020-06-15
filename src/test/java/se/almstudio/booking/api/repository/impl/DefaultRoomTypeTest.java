@@ -21,6 +21,7 @@ public class DefaultRoomTypeTest {
     hotel.setCountry("Sweden");
     hotel.setAddress("Sundby");
     hotel.setRegistered(LocalDateTime.now());
+    hotel.setUpdated(LocalDateTime.now());
     hotelId = hotelRepository.create(hotel);
   }
 
