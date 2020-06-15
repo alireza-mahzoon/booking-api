@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import se.almstudio.booking.api.model.entity.Hotel;
 import se.almstudio.booking.api.model.entity.HotelAmenities;
+import se.almstudio.booking.api.model.entity.RoomType;
 
 import java.time.LocalDateTime;
 
@@ -56,5 +57,24 @@ public class DefaultHotelAmenitiesRepositoryTest {
     Assert.assertEquals(hotelAmenities.getName(), hotelAmenitiesCreated.getName());
     Assert.assertEquals(hotelAmenities.getDescription(), hotelAmenitiesCreated.getDescription());
     Assert.assertEquals(hotelAmenities.getPricing(), hotelAmenitiesCreated.getPricing());
+  }
+
+  @Test
+  public void testUpdateHotelAmenitiesExpectTrue() {
+    DefaultHotelAmenitiesRepository hotelAmenitiesRepository = new DefaultHotelAmenitiesRepository();
+    HotelAmenities hotelAmenities = new HotelAmenities();
+    hotelAmenities.setHotelId(hotelId);
+    hotelAmenities.setName("Library");
+    hotelAmenities.setDescription("Open from 10 AM to 4 PM");
+    hotelAmenities.setPricing("Free");
+    hotelAmenities.setRegistered(LocalDateTime.now());
+    hotelAmenities.setUpdated(LocalDateTime.now());
+    Long resultHotelAmenitiesCreated = hotelAmenitiesRepository.create(hotelAmenities);
+    hotelAmenities.setName("Borrowing book");
+    hotelAmenities.setDescription("24/7");
+    hotelAmenities.setPricing("10 SEK for each book");
+    hotelAmenities.setId(resultHotelAmenitiesCreated);
+    boolean resultUpdate = hotelAmenitiesRepository.update(hotelAmenities);
+    Assert.assertTrue(resultUpdate);
   }
 }
