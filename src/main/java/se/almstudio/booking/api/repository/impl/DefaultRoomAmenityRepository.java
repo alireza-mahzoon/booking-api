@@ -42,4 +42,38 @@ public class DefaultRoomAmenityRepository implements RoomAmenityRepository {
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public RoomAmenity findById(Long roomAmenityId) {
+    LOGGER.info("Finding room amenity");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "SELECT * FROM RoomAmenity WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, roomAmenityId);
+      ps.execute();
+      rs = ps.getResultSet();
+      if (rs.next()) {
+        RoomAmenity roomAmenity = new RoomAmenity();
+        roomAmenity.setId(roomAmenityId);
+        roomAmenity.setRoomTypeId(rs.getLong("roomTypeId"));
+        roomAmenity.setName(rs.getString("name"));
+        roomAmenity.setDescription(rs.getString("description"));
+        roomAmenity.setPricing(rs.getString("pricing"));
+        LOGGER.debug("Room amenity was found");
+        return roomAmenity;
+      }
+      return null;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to find room amenity", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(rs);
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }
