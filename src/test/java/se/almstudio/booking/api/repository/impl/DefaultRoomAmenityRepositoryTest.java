@@ -45,6 +45,8 @@ public class DefaultRoomAmenityRepositoryTest {
     roomAmenity.setName("MiniBar");
     roomAmenity.setDescription("cola, water, vodka");
     roomAmenity.setPricing("100 SEK");
+    roomAmenity.setRegistered(LocalDateTime.now());
+    roomAmenity.setUpdated(LocalDateTime.now());
     Long result = roomAmenityRepository.create(roomAmenity);
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
