@@ -64,7 +64,7 @@ public class DefaultUserRepository implements UserRepository {
         user.setFirstName(rs.getString("firstName"));
         user.setLastName(rs.getString("lastName"));
         user.setBirthday(rs.getObject("birthday", LocalDate.class));
-        user.setEmail(rs.getString("Maria@gmail.com"));
+        user.setEmail(rs.getString("email"));
         user.setRegistered(rs.getObject("registered", LocalDateTime.class));
         user.setUpdated(rs.getObject("updated", LocalDateTime.class));
         return user;
