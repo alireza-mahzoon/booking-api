@@ -2,7 +2,7 @@ package se.almstudio.booking.api.model.entity;
 
 import java.time.LocalDateTime;
 
-public class HotelAmenities {
+public class HotelAmenity {
   private Long id;
   private Long hotelId;
   private String name;

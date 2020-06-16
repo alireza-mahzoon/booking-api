@@ -1,17 +1,16 @@
 package se.almstudio.booking.api.repository;
 
-import se.almstudio.booking.api.model.entity.HotelAmenities;
-import se.almstudio.booking.api.model.entity.RoomType;
+import se.almstudio.booking.api.model.entity.HotelAmenity;
 
-public interface HotelAmenitiesRepository {
+public interface HotelAmenityRepository {
 
   /**
    * Create a new hotelAmenities
    *
-   * @param hotelAmenities HotelAmenities information
+   * @param hotelAmenity HotelAmenities information
    * @return Id for the persisted hotelAmenities
    */
-  Long create(HotelAmenities hotelAmenities);
+  Long create(HotelAmenity hotelAmenity);
 
   /**
    * Find a hotelAmenity by its id
@@ -19,15 +18,15 @@ public interface HotelAmenitiesRepository {
    * @param hotelAmenitiesId hotelAmenity ID
    * @return hotelAmenity if found, {@code null} if not found
    */
-  HotelAmenities findById(Long hotelAmenitiesId);
+  HotelAmenity findById(Long hotelAmenitiesId);
 
   /**
    * Update hotelAmenities information
    *
-   * @param hotelAmenities HotelAmenities to update
+   * @param hotelAmenity HotelAmenities to update
    * @return {@code true} if successful
    */
-  boolean update(HotelAmenities hotelAmenities);
+  boolean update(HotelAmenity hotelAmenity);
 
   /**
    * Delete hotelAmenity by its hotelAmenity id

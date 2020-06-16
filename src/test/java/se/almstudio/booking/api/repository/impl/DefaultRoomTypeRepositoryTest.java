@@ -8,7 +8,7 @@ import se.almstudio.booking.api.model.entity.RoomType;
 
 import java.time.LocalDateTime;
 
-public class DefaultRoomTypeTest {
+public class DefaultRoomTypeRepositoryTest {
 
   private static Long hotelId;
 
@@ -91,5 +91,4 @@ public class DefaultRoomTypeTest {
     boolean resultDelete = roomTypeRepository.delete(resultRoomTypeCreated);
     Assert.assertTrue(resultDelete);
   }
-
 }

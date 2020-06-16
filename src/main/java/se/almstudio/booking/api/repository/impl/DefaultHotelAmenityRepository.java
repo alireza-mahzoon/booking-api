@@ -2,19 +2,19 @@ package se.almstudio.booking.api.repository.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.almstudio.booking.api.model.entity.HotelAmenities;
-import se.almstudio.booking.api.repository.HotelAmenitiesRepository;
+import se.almstudio.booking.api.model.entity.HotelAmenity;
+import se.almstudio.booking.api.repository.HotelAmenityRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 
-public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository{
-  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelAmenitiesRepository.class);
+public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
+  private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelAmenityRepository.class);
 
   @Override
-  public Long create(HotelAmenities hotelAmenities) {
+  public Long create(HotelAmenity hotelAmenity) {
     LOGGER.info("Creating a hotelAmenities");
     Connection connection = null;
     PreparedStatement ps = null;
@@ -22,15 +22,15 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
       connection = ConnectionManager.INSTANCE.getConnection();
       String query = "INSERT INTO HotelAmenities(HotelId, Name, Description, Pricing, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-      ps.setLong(1, hotelAmenities.getHotelId());
-      ps.setString(2, hotelAmenities.getName());
-      ps.setString(3, hotelAmenities.getDescription());
-      ps.setString(4, hotelAmenities.getPricing());
+      ps.setLong(1, hotelAmenity.getHotelId());
+      ps.setString(2, hotelAmenity.getName());
+      ps.setString(3, hotelAmenity.getDescription());
+      ps.setString(4, hotelAmenity.getPricing());
       ps.setObject(5, LocalDateTime.now());
       ps.setObject(6, LocalDateTime.now());
       ps.executeUpdate();
       if (ps.getGeneratedKeys().next()) {
-        LOGGER.debug("Hotel Amenity was created, the hotelAmenity information is: name: {}", hotelAmenities.getName());
+        LOGGER.debug("Hotel Amenity was created, the hotelAmenity information is: name: {}", hotelAmenity.getName());
         return ps.getGeneratedKeys().getLong(1);
       }
       return null;
@@ -44,7 +44,7 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
   }
 
   @Override
-  public HotelAmenities findById(Long hotelAmenitiesId) {
+  public HotelAmenity findById(Long hotelAmenitiesId) {
     LOGGER.info("Finding hotelAmenitiesId with Id={}", hotelAmenitiesId);
     Connection connection = null;
     PreparedStatement ps = null;
@@ -57,15 +57,15 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
       ps.execute();
       rs = ps.getResultSet();
       if (rs.next()) {
-        HotelAmenities  hotelAmenities = new HotelAmenities ();
-        hotelAmenities.setId(hotelAmenitiesId);
-        hotelAmenities.setHotelId(rs.getLong("hotelId"));
-        hotelAmenities.setName(rs.getString("name"));
-        hotelAmenities.setDescription(rs.getString("description"));
-        hotelAmenities.setPricing(rs.getString("pricing"));
-        hotelAmenities.setRegistered(rs.getObject("registered", LocalDateTime.class));
+        HotelAmenity hotelAmenity = new HotelAmenity();
+        hotelAmenity.setId(hotelAmenitiesId);
+        hotelAmenity.setHotelId(rs.getLong("hotelId"));
+        hotelAmenity.setName(rs.getString("name"));
+        hotelAmenity.setDescription(rs.getString("description"));
+        hotelAmenity.setPricing(rs.getString("pricing"));
+        hotelAmenity.setRegistered(rs.getObject("registered", LocalDateTime.class));
         LOGGER.debug("HotelAmenities was found with hotelAmenitiesId={}", hotelAmenitiesId);
-        return hotelAmenities;
+        return hotelAmenity;
       }
       return null;
     } catch (SQLException e) {
@@ -79,7 +79,7 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
   }
 
   @Override
-  public boolean update(HotelAmenities hotelAmenities) {
+  public boolean update(HotelAmenity hotelAmenity) {
     LOGGER.info("Updating a hotelAmenities information");
     Connection connection = null;
     PreparedStatement ps = null;
@@ -87,13 +87,13 @@ public class DefaultHotelAmenitiesRepository implements HotelAmenitiesRepository
       connection = ConnectionManager.INSTANCE.getConnection();
       String query = "UPDATE HotelAmenities SET HotelId=?, Name=?, Description=?, Pricing=? WHERE id=?";
       ps = connection.prepareStatement(query);
-      ps.setLong(1, hotelAmenities.getHotelId());
-      ps.setString(2, hotelAmenities.getName());
-      ps.setString(3, hotelAmenities.getDescription());
-      ps.setString(4, hotelAmenities.getPricing());
-      ps.setLong(5, hotelAmenities.getId());
+      ps.setLong(1, hotelAmenity.getHotelId());
+      ps.setString(2, hotelAmenity.getName());
+      ps.setString(3, hotelAmenity.getDescription());
+      ps.setString(4, hotelAmenity.getPricing());
+      ps.setLong(5, hotelAmenity.getId());
       int resultUpdated = ps.executeUpdate();
-      LOGGER.debug("{} hotelAmenity with id={} was updated", resultUpdated, hotelAmenities.getId());
+      LOGGER.debug("{} hotelAmenity with id={} was updated", resultUpdated, hotelAmenity.getId());
       return resultUpdated == 1;
     } catch (SQLException e) {
       LOGGER.warn("Failed to update the hotelAmenities", e);
