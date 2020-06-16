@@ -87,7 +87,7 @@ public class DefaultUserRepository implements UserRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "UPDATE \"User\" SET FirstName=?, LastName=?, BirthDay=?, Emali=? WHERE id=?";
+      String query = "UPDATE \"User\" SET FirstName=?, LastName=?, BirthDay=?, Email=? WHERE id=?";
       ps = connection.prepareStatement(query);
       ps.setString(1, user.getFirstName());
       ps.setString(2, user.getLastName());
