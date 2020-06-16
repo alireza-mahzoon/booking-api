@@ -47,5 +47,15 @@ create table "User" (
     Email TEXT not null,
     Registered timestamp not null,
     Updated timestamp not null
+);
+
+create table RoomAmenity (
+    Id bigserial primary key,
+    RoomTypeId bigint references roomType (id),
+    Name TEXT not null,
+    Description TEXT not null,
+    Pricing TEXT not null,
+    Registered timestamp not null,
+    Updated timestamp not null
 )
 
