@@ -65,7 +65,4 @@ public class DefaultUserRepositoryTest {
     boolean resultUpdated = userRepository.update(user);
     Assert.assertTrue(resultUpdated);
   }
-
-  @Test
-
 }
