@@ -82,7 +82,28 @@ public class DefaultUserRepository implements UserRepository {
 
   @Override
   public boolean update(User user) {
-    return false;
+    LOGGER.info("updating a user information");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "UPDATE \"User\" SET FirstName=?, LastName=?, BirthDay=?, Emali=? WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setString(1, user.getFirstName());
+      ps.setString(2, user.getLastName());
+      ps.setObject(3, user.getBirthday());
+      ps.setString(4, user.getEmail());
+      ps.setLong(5, user.getId());
+      int resultUpdated = ps.executeUpdate();
+      LOGGER.debug("User was updated");
+      return resultUpdated == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to update user");
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
   }
 
   @Override
