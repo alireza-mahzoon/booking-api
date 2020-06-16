@@ -76,4 +76,29 @@ public class DefaultRoomAmenityRepository implements RoomAmenityRepository {
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public boolean update(RoomAmenity roomAmenity) {
+    LOGGER.info("Updating a roomAmenity information");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "UPDATE RoomAmenity SET RoomTypeId=?, Name=?, Description=?, Pricing=? WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, roomAmenity.getRoomTypeId());
+      ps.setString(2, roomAmenity.getName());
+      ps.setString(3, roomAmenity.getDescription());
+      ps.setString(4, roomAmenity.getPricing());
+      int resultUpdated = ps.executeUpdate();
+      LOGGER.debug("Room amenity was updated");
+      return resultUpdated == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to update the room amenity", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }

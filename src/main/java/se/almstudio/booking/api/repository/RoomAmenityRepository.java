@@ -19,4 +19,12 @@ public interface RoomAmenityRepository {
    * @return RoomAmenity if found, {@code null} if not found
    */
   RoomAmenity findById(Long roomAmenityId);
+
+  /**
+   * update roomAmenity information
+   *
+   * @param roomAmenity RoomAmenity to update
+   * @return {@code true} if successful
+   */
+  boolean update(RoomAmenity roomAmenity);
 }
