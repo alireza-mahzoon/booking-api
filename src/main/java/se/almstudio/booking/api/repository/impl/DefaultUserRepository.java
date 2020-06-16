@@ -8,6 +8,7 @@ import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -46,7 +47,37 @@ public class DefaultUserRepository implements UserRepository {
 
   @Override
   public User findById(Long userId) {
-    return null;
+    LOGGER.info("Finding user with Id={}", userId);
+    Connection connection = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "SELECT * FROM \"User\" WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, userId);
+      ps.execute();
+      rs = ps.getResultSet();
+      if (rs.next()) {
+        User user = new User();
+        user.setId(userId);
+        user.setFirstName(rs.getString("firstName"));
+        user.setLastName(rs.getString("lastName"));
+        user.setBirthday(rs.getObject("birthday", LocalDate.class));
+        user.setEmail(rs.getString("Maria@gmail.com"));
+        user.setRegistered(rs.getObject("registered", LocalDateTime.class));
+        user.setUpdated(rs.getObject("updated", LocalDateTime.class));
+        return user;
+      }
+      return null;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to find the user", e);
+      throw new RuntimeException(e);
+    }finally {
+      ConnectionUtils.closeQuietly(rs);
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
   }
 
   @Override
