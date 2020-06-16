@@ -1,12 +1,14 @@
 package se.almstudio.booking.api.model.entity;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class User {
   private Long id;
   private String firstName;
   private String lastName;
-  private String birthday;
+  private LocalDate birthday;
   private String email;
   private LocalDateTime Registered;
   private LocalDateTime updated;
@@ -23,7 +25,8 @@ public class User {
     this.lastName = lastName;
   }
 
-  public void setBirthday(String birthday) {
+
+  public void setBirthday(LocalDate birthday) {
     this.birthday = birthday;
   }
 
@@ -51,8 +54,9 @@ public class User {
     return lastName;
   }
 
-  public String getBirthday() {
-    return birthday;
+
+  public LocalDate getBirthday() {
+    return this.birthday;
   }
 
   public String getEmail() {
@@ -66,4 +70,6 @@ public class User {
   public LocalDateTime getUpdated() {
     return updated;
   }
+
+
 }

@@ -2,7 +2,6 @@ package se.almstudio.booking.api.repository.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import se.almstudio.booking.api.model.entity.Room;
 import se.almstudio.booking.api.model.entity.User;
 import se.almstudio.booking.api.repository.UserRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
@@ -11,9 +10,9 @@ import se.almstudio.booking.api.util.impl.ConnectionUtils;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+
 public class DefaultUserRepository implements UserRepository {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUserRepository.class);
-
 
   @Override
   public Long create(User user) {
@@ -22,11 +21,11 @@ public class DefaultUserRepository implements UserRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "INSERT INTO User(firstName, lastName, birthDay, email, registered, updated) VALUES(?,?,?,?,?,?)";
+      String query = "INSERT INTO \"User\"(FirstName, LastName, Birthday, Email, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setString(1, user.getFirstName());
       ps.setString(2, user.getLastName());
-      ps.setString(3, user.getBirthday());
+      ps.setObject(3, user.getBirthday());
       ps.setString(4, user.getEmail());
       ps.setObject(5, LocalDateTime.now());
       ps.setObject(6, LocalDateTime.now());
@@ -46,7 +45,7 @@ public class DefaultUserRepository implements UserRepository {
   }
 
   @Override
-  public Room findById(Long userId) {
+  public User findById(Long userId) {
     return null;
   }
 

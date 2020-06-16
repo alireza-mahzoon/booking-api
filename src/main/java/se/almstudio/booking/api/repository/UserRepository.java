@@ -1,6 +1,5 @@
 package se.almstudio.booking.api.repository;
 
-import se.almstudio.booking.api.model.entity.Room;
 import se.almstudio.booking.api.model.entity.User;
 
 public interface UserRepository {
@@ -19,7 +18,7 @@ public interface UserRepository {
    * @param userId User ID
    * @return User if found, {@code null} if not found
    */
-  Room findById(Long userId);
+  User findById(Long userId);
 
   /**
    * update user information
