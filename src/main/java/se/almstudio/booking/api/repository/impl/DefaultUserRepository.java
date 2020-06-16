@@ -108,6 +108,23 @@ public class DefaultUserRepository implements UserRepository {
 
   @Override
   public boolean delete(Long userId) {
-    return false;
+    LOGGER.info("Deleting a user");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "DELETE FROM \"User\" WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, userId);
+      int result = ps.executeUpdate();
+      LOGGER.debug("user was deleted");
+      return result == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to delete user");
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
   }
 }
