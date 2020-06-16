@@ -51,4 +51,23 @@ public class DefaultRoomAmenityRepositoryTest {
     Assert.assertNotNull(result);
     Assert.assertNotEquals(0L, result.longValue());
   }
+
+  @Test
+  public void testUpdateRoomAmenityExpectTrue() {
+    DefaultRoomAmenityRepository roomAmenityRepository = new DefaultRoomAmenityRepository();
+    RoomAmenity roomAmenity = new RoomAmenity();
+    roomAmenity.setRoomTypeId(roomTypeId);
+    roomAmenity.setName("MiniBar");
+    roomAmenity.setDescription("cola, water, vodka");
+    roomAmenity.setPricing("100 SEK");
+    roomAmenity.setRegistered(LocalDateTime.now());
+    roomAmenity.setUpdated(LocalDateTime.now());
+    Long resultRoomAmenityCreated = roomAmenityRepository.create(roomAmenity);
+    roomAmenity.setName("Minibar and fridge");
+    roomAmenity.setDescription("cola 300ml, water 300ml, Absolut vodka 1L");
+    roomAmenity.setPricing("500 SEK");
+    roomAmenity.setId(resultRoomAmenityCreated);
+    boolean resultUpdated = roomAmenityRepository.update(roomAmenity);
+    Assert.assertTrue(resultUpdated);
+  }
 }

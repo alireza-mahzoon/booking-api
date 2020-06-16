@@ -90,6 +90,7 @@ public class DefaultRoomAmenityRepository implements RoomAmenityRepository {
       ps.setString(2, roomAmenity.getName());
       ps.setString(3, roomAmenity.getDescription());
       ps.setString(4, roomAmenity.getPricing());
+      ps.setLong(5, roomAmenity.getId());
       int resultUpdated = ps.executeUpdate();
       LOGGER.debug("Room amenity was updated");
       return resultUpdated == 1;
