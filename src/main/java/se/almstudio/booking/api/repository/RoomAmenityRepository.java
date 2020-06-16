@@ -27,4 +27,12 @@ public interface RoomAmenityRepository {
    * @return {@code true} if successful
    */
   boolean update(RoomAmenity roomAmenity);
+
+  /**
+   * Delete roomAmenity by its roomAmenity id
+   *
+   * @param roomAmenityId RoomAmenity ID
+   * @return {@code true} if deleted
+   */
+  boolean delete(Long roomAmenityId);
 }

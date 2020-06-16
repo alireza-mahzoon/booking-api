@@ -102,4 +102,26 @@ public class DefaultRoomAmenityRepository implements RoomAmenityRepository {
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public boolean delete(Long roomAmenityId) {
+    LOGGER.info("Deleting room amenity");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "DELETE FROM RoomAmenity WHERE id =?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, roomAmenityId);
+      int result = ps.executeUpdate();
+      LOGGER.debug("room amenity was deleted");
+      return result == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to delete room Amenity");
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }
