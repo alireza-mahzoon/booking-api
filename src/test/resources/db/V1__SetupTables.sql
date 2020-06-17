@@ -66,7 +66,7 @@ create table Booking (
     CheckOutDate date not null,
     HotelId bigint references hotel (id),
     RoomId bigint references room (id),
-    Regidtered timestamp not null,
+    Registered timestamp not null,
     Updated timestamp not null
 )
 

@@ -28,8 +28,8 @@ public class DefaultBookingRepository implements BookingRepository{
       ps.setObject(3, booking.getCheckOutDate());
       ps.setLong(4, booking.getHotelId());
       ps.setLong(5, booking.getRoomId());
-      ps.setObject(6, booking.getRegistered());
-      ps.setObject(7, booking.getUpdated());
+      ps.setObject(6, LocalDateTime.now());
+      ps.setObject(7, LocalDateTime.now());
       ps.executeUpdate();
       if(ps.getGeneratedKeys().next()) {
         LOGGER.debug("Booking was created");
@@ -44,5 +44,5 @@ public class DefaultBookingRepository implements BookingRepository{
       ConnectionUtils.closeQuietly(connection);
     }
   }
-  
+
 }
