@@ -121,7 +121,6 @@ public class DefaultBookingRepository implements BookingRepository{
       ps = connection.prepareStatement(query);
       ps.setLong(1, bookingId);
       int result = ps.executeUpdate();
-      int result = ps.executeUpdate();
       LOGGER.debug("Booking was deleted");
       return result == 1;
     } catch (SQLException e) {

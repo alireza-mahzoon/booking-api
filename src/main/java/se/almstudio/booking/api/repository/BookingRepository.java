@@ -34,5 +34,5 @@ public interface BookingRepository {
    * @param bookingId Booking ID
    * @return {@code true} if deleted
    */
-  boolean delete(Long bookingId)
+  boolean delete(Long bookingId);
 }
