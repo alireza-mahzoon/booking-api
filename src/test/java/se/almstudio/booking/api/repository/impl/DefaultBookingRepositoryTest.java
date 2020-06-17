@@ -114,4 +114,22 @@ public class DefaultBookingRepositoryTest {
     boolean resultUpdated = bookingRepository.update(booking);
     Assert.assertTrue(resultUpdated);
   }
+
+  @Test
+  public void testDeleteBookingExpectTrue() {
+    DefaultBookingRepository bookingRepository = new DefaultBookingRepository();
+    Booking booking = new Booking();
+    LocalDate checkIn = LocalDate.now();
+    LocalDate checkOut = LocalDate.of(2019, 9, 11);
+    booking.setUserId(userId);
+    booking.setCheckInDate(checkIn);
+    booking.setCheckOutDate(checkOut);
+    booking.setHotelId(hotelId);
+    booking.setRoomId(roomId);
+    booking.setRegistered(LocalDateTime.now());
+    booking.setUpdated(LocalDateTime.now());
+    Long result = bookingRepository.create(booking);
+    boolean resultDeleted = bookingRepository.delete(result);
+    Assert.assertTrue(resultDeleted);
+  }
 }
