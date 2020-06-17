@@ -57,5 +57,16 @@ create table RoomAmenity (
     Pricing TEXT not null,
     Registered timestamp not null,
     Updated timestamp not null
+);
+
+create table Booking (
+    Id bigserial primary key,
+    UserId bigint references "User" (id),
+    CheckInDate date not null,
+    CheckOutDate date not null,
+    HotelId bigint references hotel (id),
+    RoomId bigint references room (id),
+    Regidtered timestamp not null,
+    Updated timestamp not null
 )
 
