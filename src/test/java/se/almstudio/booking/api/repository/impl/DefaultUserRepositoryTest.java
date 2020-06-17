@@ -65,4 +65,20 @@ public class DefaultUserRepositoryTest {
     boolean resultUpdated = userRepository.update(user);
     Assert.assertTrue(resultUpdated);
   }
+
+  @Test
+  public void testDeleteUserExpectTrue() {
+    DefaultUserRepository userRepository = new DefaultUserRepository();
+    User user = new User();
+    LocalDate date = LocalDate.of(1983, 4, 26);
+    user.setFirstName("Herman");
+    user.setLastName("Kiraly");
+    user.setBirthday(date);
+    user.setEmail("Herman@gmail.com");
+    user.setRegistered(LocalDateTime.now());
+    user.setUpdated(LocalDateTime.now());
+    Long result = userRepository.create(user);
+    boolean resultDelete = userRepository.delete(result);
+    Assert.assertTrue(resultDelete);
+  }
 }
