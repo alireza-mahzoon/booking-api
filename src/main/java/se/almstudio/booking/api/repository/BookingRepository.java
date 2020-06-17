@@ -11,4 +11,12 @@ public interface BookingRepository {
    * @return Id for the persisted booking
    */
   Long create(Booking booking);
+
+  /**
+   * Find a booking by its id
+   *
+   * @param bookingId booking ID
+   * @return Booking if found, {@code null} if not found
+   */
+  Booking findById(Long bookingId);
 }
