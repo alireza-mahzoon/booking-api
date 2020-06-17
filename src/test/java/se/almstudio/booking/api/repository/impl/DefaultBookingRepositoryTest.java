@@ -91,4 +91,27 @@ public class DefaultBookingRepositoryTest {
     Assert.assertEquals(booking.getHotelId(), bookingCreated.getHotelId());
     Assert.assertEquals(booking.getRoomId(), bookingCreated.getRoomId());
   }
+
+  @Test
+  public void testUpdateBookingExpectTrue() {
+    DefaultBookingRepository bookingRepository = new DefaultBookingRepository();
+    Booking booking = new Booking();
+    LocalDate checkIn = LocalDate.now();
+    LocalDate checkOut = LocalDate.of(2019, 9, 11);
+    booking.setUserId(userId);
+    booking.setCheckInDate(checkIn);
+    booking.setCheckOutDate(checkOut);
+    booking.setHotelId(hotelId);
+    booking.setRoomId(roomId);
+    booking.setRegistered(LocalDateTime.now());
+    booking.setUpdated(LocalDateTime.now());
+    Long result = bookingRepository.create(booking);
+    LocalDate checkInUpdated = LocalDate.of(2020, 9, 10);
+    LocalDate checkOutUpdated = LocalDate.of(2020, 9, 11);
+    booking.setCheckInDate(checkInUpdated);
+    booking.setCheckOutDate(checkOutUpdated);
+    booking.setId(result);
+    boolean resultUpdated = bookingRepository.update(booking);
+    Assert.assertTrue(resultUpdated);
+  }
 }

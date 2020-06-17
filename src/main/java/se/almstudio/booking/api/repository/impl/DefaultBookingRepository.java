@@ -97,6 +97,7 @@ public class DefaultBookingRepository implements BookingRepository{
       ps.setObject(3, booking.getCheckOutDate());
       ps.setLong(4, booking.getHotelId());
       ps.setLong(5, booking.getRoomId());
+      ps.setLong(6, booking.getId());
       int resultUpdated = ps.executeUpdate();
       LOGGER.debug("Booking was updated");
       return resultUpdated == 1;
