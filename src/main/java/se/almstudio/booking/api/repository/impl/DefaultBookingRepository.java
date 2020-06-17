@@ -82,4 +82,30 @@ public class DefaultBookingRepository implements BookingRepository{
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public boolean update(Booking booking) {
+    LOGGER.info("Updating booking information");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "UPDATE Booking SET UserId=?, CheckInDate=?, CheckOutDate=?, HotelId=?, RoomId=? WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, booking.getUserId());
+      ps.setObject(2, booking.getCheckInDate());
+      ps.setObject(3, booking.getCheckOutDate());
+      ps.setLong(4, booking.getHotelId());
+      ps.setLong(5, booking.getRoomId());
+      int resultUpdated = ps.executeUpdate();
+      LOGGER.debug("Booking was updated");
+      return resultUpdated == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to update booking", e);
+      throw new RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }

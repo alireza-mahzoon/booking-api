@@ -19,4 +19,12 @@ public interface BookingRepository {
    * @return Booking if found, {@code null} if not found
    */
   Booking findById(Long bookingId);
+
+  /**
+   * Update booking information
+   *
+   * @param booking Booking to update
+   * @return {@code true} if successful
+   */
+  boolean update(Booking booking);
 }
