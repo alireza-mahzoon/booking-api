@@ -109,4 +109,27 @@ public class DefaultBookingRepository implements BookingRepository{
       ConnectionUtils.closeQuietly(connection);
     }
   }
+
+  @Override
+  public boolean delete(Long bookingId) {
+    LOGGER.info("Deleting booking");
+    Connection connection = null;
+    PreparedStatement ps = null;
+    try {
+      connection = ConnectionManager.INSTANCE.getConnection();
+      String query = "DELETE FROM Booking WHERE id=?";
+      ps = connection.prepareStatement(query);
+      ps.setLong(1, bookingId);
+      int result = ps.executeUpdate();
+      int result = ps.executeUpdate();
+      LOGGER.debug("Booking was deleted");
+      return result == 1;
+    } catch (SQLException e) {
+      LOGGER.warn("Failed to delete booking", e);
+      throw new  RuntimeException(e);
+    } finally {
+      ConnectionUtils.closeQuietly(ps);
+      ConnectionUtils.closeQuietly(connection);
+    }
+  }
 }

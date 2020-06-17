@@ -27,4 +27,12 @@ public interface BookingRepository {
    * @return {@code true} if successful
    */
   boolean update(Booking booking);
+
+  /**
+   * delete booking by its booking id
+   *
+   * @param bookingId Booking ID
+   * @return {@code true} if deleted
+   */
+  boolean delete(Long bookingId)
 }
