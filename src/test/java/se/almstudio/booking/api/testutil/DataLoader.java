@@ -30,7 +30,6 @@ public class DataLoader {
     List<Long> hotelId = new ArrayList<>();
     List<Long> roomTypeId = new ArrayList<>();
 
-
     for (int i = 0; i < hotels; i++) {
         Hotel hotel = new Hotel();
         hotel.setName(faker.name().name());
@@ -42,23 +41,23 @@ public class DataLoader {
     }
 
     for (int i = 0; i < roomTypes; i++) {
-      RoomType roomType = new RoomType();
-      roomType.setHotelId(hotelId.get(i));
-      roomType.setName(faker.name().name());
-      roomType.setDescription(faker.lorem().sentence());
-      roomType.setCapacity(faker.number().numberBetween(2,6));
-      Long result = roomTypeRepository.create(roomType);
-      roomTypeId.add(result);
+        RoomType roomType = new RoomType();
+        roomType.setHotelId(hotelId.get(i));
+        roomType.setName(faker.name().name());
+        roomType.setDescription(faker.lorem().sentence());
+        roomType.setCapacity(faker.number().numberBetween(2,6));
+        Long result = roomTypeRepository.create(roomType);
+        roomTypeId.add(result);
     }
 
     for (int i = 0; i < rooms; i++) {
-      Room room = new Room();
-      room.setHotelId(hotelId.get(i));
-      room.setRoomTypeId(roomTypeId.get(i));
-      room.setNumber((int) faker.number().randomNumber());
-      room.setPhoneNumber(faker.phoneNumber().toString());
-      room.setFloor(faker.number().numberBetween(1,200));
-      roomRepository.create(room);
+        Room room = new Room();
+        room.setHotelId(hotelId.get(i));
+        room.setRoomTypeId(roomTypeId.get(i));
+        room.setNumber(faker.number().numberBetween(1,100000));
+        room.setPhoneNumber(faker.phoneNumber().toString());
+        room.setFloor(faker.number().numberBetween(1,200));
+        roomRepository.create(room);
     }
   }
 }
