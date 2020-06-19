@@ -22,7 +22,7 @@ public class DataLoader {
 
   @Test
   public void testGenerateData() {
-    generate(10,10,10,10,0, 0, 0);
+    generate(10,10,10,10,10, 10, 0);
   }
 
   public void generate(int hotels, int roomTypes, int rooms, int roomAmenities, int hotelAmenities, int users, int bookings) {
@@ -67,6 +67,15 @@ public class DataLoader {
       roomAmenity.setDescription(faker.lorem().sentence(5));
       roomAmenity.setPricing("100SEK");
       roomAmenityRepository.create(roomAmenity);
+    }
+
+    for (int i = 0; i < hotelAmenities; i++) {
+      HotelAmenity hotelAmenity = new HotelAmenity();
+      hotelAmenity.setHotelId(hotelId.get(i));
+      hotelAmenity.setName(faker.name().name());
+      hotelAmenity.setDescription(faker.lorem().sentence(5));
+      hotelAmenity.setPricing("500SEK");
+      hotelAmenityRepository.create(hotelAmenity);
     }
   }
 }
