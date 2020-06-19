@@ -20,7 +20,7 @@ public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "INSERT INTO HotelAmenities(HotelId, Name, Description, Pricing, Registered, Updated) VALUES(?,?,?,?,?,?)";
+      String query = "INSERT INTO HotelAmenity(HotelId, Name, Description, Pricing, Registered, Updated) VALUES(?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setLong(1, hotelAmenity.getHotelId());
       ps.setString(2, hotelAmenity.getName());
