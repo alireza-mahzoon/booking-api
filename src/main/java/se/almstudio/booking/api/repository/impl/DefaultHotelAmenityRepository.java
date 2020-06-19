@@ -51,7 +51,7 @@ public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
     ResultSet rs = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "SELECT *  FROM HotelAmenities WHERE id=?";
+      String query = "SELECT *  FROM HotelAmenity WHERE id=?";
       ps = connection.prepareStatement(query);
       ps.setLong(1, hotelAmenitiesId);
       ps.execute();
@@ -64,7 +64,7 @@ public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
         hotelAmenity.setDescription(rs.getString("description"));
         hotelAmenity.setPricing(rs.getString("pricing"));
         hotelAmenity.setRegistered(rs.getObject("registered", LocalDateTime.class));
-        LOGGER.debug("HotelAmenities was found with hotelAmenitiesId={}", hotelAmenitiesId);
+        LOGGER.debug("HotelAmenity was found with hotelAmenitiesId={}", hotelAmenitiesId);
         return hotelAmenity;
       }
       return null;
@@ -85,7 +85,7 @@ public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "UPDATE HotelAmenities SET HotelId=?, Name=?, Description=?, Pricing=? WHERE id=?";
+      String query = "UPDATE HotelAmenity SET HotelId=?, Name=?, Description=?, Pricing=? WHERE id=?";
       ps = connection.prepareStatement(query);
       ps.setLong(1, hotelAmenity.getHotelId());
       ps.setString(2, hotelAmenity.getName());
@@ -111,7 +111,7 @@ public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "DELETE FROM HotelAmenities WHERE id=?";
+      String query = "DELETE FROM HotelAmenity WHERE id=?";
       ps = connection.prepareStatement(query);
       ps.setLong(1, hotelAmenitiesId);
       int result = ps.executeUpdate();

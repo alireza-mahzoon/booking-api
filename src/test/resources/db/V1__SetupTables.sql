@@ -8,6 +8,16 @@ create table Hotel (
     Updated timestamp not null
 );
 
+create table RoomType (
+    Id bigserial primary key,
+    HotelId bigint references hotel (id),
+    Name TEXT NOT NULL,
+    Description text not null,
+    Capacity int not null,
+    Registered timestamp not null,
+    Updated timestamp not null
+);
+
 create table Room (
     Id bigserial primary key,
     HotelId bigint references hotel (id),
@@ -19,17 +29,8 @@ create table Room (
     RoomTypeId bigint references roomType (id)
 );
 
-create table RoomType (
-    Id bigserial primary key,
-    HotelId bigint references hotel (id),
-    Name TEXT NOT NULL,
-    Description text not null,
-    Capacity int not null,
-    Registered timestamp not null,
-    Updated timestamp not null
-);
 
-create table HotelAmenities (
+create table HotelAmenity (
     Id bigserial primary key,
     HotelId bigint references hotel (id),
     Name TEXT not null,
