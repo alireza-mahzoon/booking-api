@@ -22,13 +22,15 @@ public class DataLoader {
 
   @Test
   public void testGenerateData() {
-    generate(10,10,10,10,10, 10, 0);
+    generate(10,10,10,10,10, 10, 10);
   }
 
   public void generate(int hotels, int roomTypes, int rooms, int roomAmenities, int hotelAmenities, int users, int bookings) {
 
     List<Long> hotelId = new ArrayList<>();
     List<Long> roomTypeId = new ArrayList<>();
+    List<Long> userId = new ArrayList<>();
+    List<Long> roomId = new ArrayList<>();
 
     for (int i = 0; i < hotels; i++) {
         Hotel hotel = new Hotel();
@@ -57,7 +59,8 @@ public class DataLoader {
         room.setNumber(faker.number().numberBetween(1,100000));
         room.setPhoneNumber("423424234234");
         room.setFloor(faker.number().numberBetween(1,200));
-        roomRepository.create(room);
+        Long result = roomRepository.create(room);
+        roomId.add(result);
     }
 
     for (int i = 0; i < roomAmenities; i++) {
@@ -76,6 +79,26 @@ public class DataLoader {
       hotelAmenity.setDescription(faker.lorem().sentence(5));
       hotelAmenity.setPricing("500SEK");
       hotelAmenityRepository.create(hotelAmenity);
+    }
+
+    for (int i = 0; i < users; i++) {
+      User user = new User();
+      user.setFirstName(faker.name().firstName());
+      user.setLastName(faker.name().lastName());
+      user.setBirthday(LocalDate.now());
+      user.setEmail(faker.name().name());
+      Long result = userRepository.create(user);
+      userId.add(result);
+    }
+
+    for (int i = 0; i < bookings; i++) {
+      Booking booking = new Booking();
+      booking.setUserId(userId.get(i));
+      booking.setCheckInDate(LocalDate.now());
+      booking.setCheckOutDate(LocalDate.now());
+      booking.setHotelId(hotelId.get(i));
+      booking.setRoomId(roomId.get(i));
+      bookingRepository.create(booking);
     }
   }
 }
