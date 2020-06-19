@@ -16,7 +16,7 @@ create table Room (
     Floor int not null,
     Registered timestamp not null,
     Updated timestamp not null,
-    RoomTypeId bigint references roomType (id),
+    RoomTypeId bigint references roomType (id)
 );
 
 create table RoomType (
@@ -68,5 +68,5 @@ create table Booking (
     RoomId bigint references room (id),
     Registered timestamp not null,
     Updated timestamp not null
-)
+);
 
