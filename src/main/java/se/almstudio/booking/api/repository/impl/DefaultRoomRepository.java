@@ -22,18 +22,18 @@ public class DefaultRoomRepository implements RoomRepository {
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "INSERT INTO Room(HotelId, Number, PhoneNumber, Floor, NumberOfGuests, Registered, Updated) VALUES(?,?,?,?,?,?,?)";
+      String query = "INSERT INTO Room(HotelId, Number, PhoneNumber, Floor, RoomTypeId, Registered, Updated) VALUES(?,?,?,?,?,?,?)";
       ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
       ps.setLong(1, room.getHotelId());
       ps.setInt(2, room.getNumber());
       ps.setString(3, room.getPhoneNumber());
       ps.setInt(4, room.getFloor());
-      ps.setInt(5, room.getNumberOfGuest());
+      ps.setLong(5, room.getRoomTypeId());
       ps.setObject(6, LocalDateTime.now());
       ps.setObject(7, LocalDateTime.now());
       ps.executeUpdate();
       if (ps.getGeneratedKeys().next()) {
-        LOGGER.debug("Room was created, the room is in the hotel with hotelId={}, the room information is: number: {}, phoneNUmber: {}, floor: {}, numberOfGuests: {}", room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());
+        LOGGER.debug("Room was created, the room is in the hotel with hotelId={}, the room information is: number: {}, phoneNUmber: {}, floor: {}, roomTypeId: {}", room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getRoomTypeId());
         return ps.getGeneratedKeys().getLong(1);
       }
       return null;
@@ -66,7 +66,7 @@ public class DefaultRoomRepository implements RoomRepository {
         room.setNumber(rs.getInt("number"));
         room.setPhoneNumber(rs.getString("phoneNumber"));
         room.setFloor(rs.getInt("floor"));
-        room.setNumberOfGuest(rs.getInt("numberOfGuests"));
+        room.setRoomTypeId(rs.getLong("roomTypeId"));
         room.setRegistered(rs.getObject("registered", LocalDateTime.class));
         LOGGER.debug("Room was found with roomId={}", roomId);
         return room;
@@ -84,21 +84,21 @@ public class DefaultRoomRepository implements RoomRepository {
 
   @Override
   public boolean update(Room room) {
-    LOGGER.info("Updating a room information (hotelID, number, phoneNumber, floor, numberOfGuests)");
+    LOGGER.info("Updating a room information (hotelID, number, phoneNumber, floor, roomTypeId)");
     Connection connection = null;
     PreparedStatement ps = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "UPDATE Room SET HotelId=?, Number=?, PhoneNumber=?, Floor=?, NumberOfGuests=? WHERE id=?";
+      String query = "UPDATE Room SET HotelId=?, Number=?, PhoneNumber=?, Floor=?, RoomTypeId=? WHERE id=?";
       ps = connection.prepareStatement(query);
       ps.setLong(1, room.getHotelId());
       ps.setInt(2, room.getNumber());
       ps.setString(3, room.getPhoneNumber());
       ps.setInt(4, room.getFloor());
-      ps.setInt(5, room.getNumberOfGuest());
+      ps.setLong(5, room.getRoomTypeId());
       ps.setLong(6, room.getId());
       int resultUpdated = ps.executeUpdate();
-      LOGGER.debug("{} room was updated, information of room with id={} after update is: hotelId={}, number={}, phoneNumber={}, floor={}, numberOfGuests={}", resultUpdated, room.getId(), room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getNumberOfGuest());
+      LOGGER.debug("{} room was updated, information of room with id={} after update is: hotelId={}, number={}, phoneNumber={}, floor={}, roomTypeId={}", resultUpdated, room.getId(), room.getHotelId(), room.getNumber(), room.getPhoneNumber(), room.getFloor(), room.getRoomTypeId());
       return resultUpdated == 1;
     } catch (SQLException e) {
       LOGGER.warn("Failed to update the room", e);
@@ -152,7 +152,7 @@ public class DefaultRoomRepository implements RoomRepository {
         room.setNumber(rs.getInt("number"));
         room.setPhoneNumber(rs.getString("phoneNumber"));
         room.setFloor(rs.getInt("floor"));
-        room.setNumberOfGuest(rs.getInt("numberOfGuests"));
+        room.setRoomTypeId(rs.getLong("roomTypeId"));
         room.setRegistered(rs.getObject("registered", LocalDateTime.class));
         rooms.add(room);
       }

@@ -1,5 +1,7 @@
 package se.almstudio.booking.api.model.entity;
 
+import com.github.javafaker.PhoneNumber;
+
 import java.time.LocalDateTime;
 
 public class Room {
@@ -8,7 +10,7 @@ public class Room {
   private int number;
   private String phoneNumber;
   private int floor;
-  private int numberOfGuest;
+  private Long RoomTypeId;
   private LocalDateTime registered;
   private LocalDateTime updated;
 
@@ -60,12 +62,12 @@ public class Room {
     this.floor = floor;
   }
 
-  public int getNumberOfGuest() {
-    return numberOfGuest;
+  public Long getRoomTypeId() {
+    return RoomTypeId;
   }
 
-  public void setNumberOfGuest(int numberOfGuest) {
-    this.numberOfGuest = numberOfGuest;
+  public void setRoomTypeId(Long roomTypeId) {
+    RoomTypeId = roomTypeId;
   }
 
   public LocalDateTime getRegistered() {
@@ -85,7 +87,7 @@ public class Room {
       ", number='" + number + '\'' +
       ", phoneNumber='" + phoneNumber + '\'' +
       ", floor='" + floor + '\'' +
-      ", numberOfGuests='" + numberOfGuest + '\'' +
+      ", RoomTypeId='" + RoomTypeId + '\'' +
       ", registered=" + registered +
       '}';
   }

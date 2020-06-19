@@ -57,7 +57,7 @@ public class DataLoader {
         room.setHotelId(hotelId.get(i));
         room.setRoomTypeId(roomTypeId.get(i));
         room.setNumber(faker.number().numberBetween(1,100000));
-        room.setPhoneNumber("423424234234");
+        room.setPhoneNumber(faker.phoneNumber().toString());
         room.setFloor(faker.number().numberBetween(1,200));
         Long result = roomRepository.create(room);
         roomId.add(result);

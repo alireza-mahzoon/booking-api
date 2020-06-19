@@ -3,10 +3,7 @@ package se.almstudio.booking.api.repository.impl;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import se.almstudio.booking.api.model.entity.Hotel;
-import se.almstudio.booking.api.model.entity.Room;
-import se.almstudio.booking.api.model.entity.User;
-import se.almstudio.booking.api.model.entity.Booking;
+import se.almstudio.booking.api.model.entity.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +13,7 @@ public class DefaultBookingRepositoryTest {
   private static Long hotelId;
   private static Long roomId;
   private static Long userId;
+  private static Long roomTypeId;
 
   @BeforeClass
   public static void beforeClass() {
@@ -29,13 +27,21 @@ public class DefaultBookingRepositoryTest {
     hotel.setUpdated(LocalDateTime.now());
     hotelId = hotelRepository.create(hotel);
 
+    DefaultRoomTypeRepository roomTypeRepository = new DefaultRoomTypeRepository();
+    RoomType roomType = new RoomType();
+    roomType.setHotelId(hotelId);
+    roomType.setCapacity(3);
+    roomType.setDescription("Two beds");
+    roomType.setName("Type One");
+    roomTypeId = roomTypeRepository.create(roomType);
+
     DefaultRoomRepository roomRepository = new DefaultRoomRepository();
     Room room = new Room();
     room.setHotelId(hotelId);
     room.setNumber(99);
     room.setPhoneNumber("964389");
     room.setFloor(25);
-    room.setNumberOfGuest(4);
+    room.setRoomTypeId(roomTypeId);
     room.setRegistered(LocalDateTime.now());
     room.setUpdated(LocalDateTime.now());
     roomId = roomRepository.create(room);

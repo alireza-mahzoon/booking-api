@@ -14,9 +14,9 @@ create table Room (
     Number int not null,
     PhoneNumber text not null,
     Floor int not null,
-    NumberOfGuests int not null,
     Registered timestamp not null,
-    Updated timestamp not null
+    Updated timestamp not null,
+    RoomTypeId bigint references roomType (id),
 );
 
 create table RoomType (
