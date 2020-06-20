@@ -94,8 +94,10 @@ public class DataLoader {
     for (int i = 0; i < bookings; i++) {
       Booking booking = new Booking();
       booking.setUserId(userId.get(i));
-      booking.setCheckInDate(LocalDate.now());
-      booking.setCheckOutDate(LocalDate.now());
+      int duration = faker.number().numberBetween(2, 15);
+      LocalDate checkIn = LocalDate.now().plusDays(faker.number().numberBetween(14, 300));
+      booking.setCheckInDate(checkIn);
+      booking.setCheckOutDate(checkIn.plusDays(duration));
       booking.setHotelId(hotelId.get(i));
       booking.setRoomId(roomId.get(i));
       bookingRepository.create(booking);
