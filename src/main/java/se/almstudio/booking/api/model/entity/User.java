@@ -54,7 +54,6 @@ public class User {
     return lastName;
   }
 
-
   public LocalDate getBirthday() {
     return this.birthday;
   }
@@ -70,6 +69,4 @@ public class User {
   public LocalDateTime getUpdated() {
     return updated;
   }
-
-
 }

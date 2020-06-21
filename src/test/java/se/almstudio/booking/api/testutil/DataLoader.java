@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoader {
+
   private final HotelRepository hotelRepository = new DefaultHotelRepository();
   private final RoomTypeRepository roomTypeRepository = new DefaultRoomTypeRepository();
   private final RoomRepository roomRepository = new DefaultRoomRepository();

@@ -29,7 +29,6 @@ create table Room (
     RoomTypeId bigint references roomType (id)
 );
 
-
 create table HotelAmenity (
     Id bigserial primary key,
     HotelId bigint references hotel (id),

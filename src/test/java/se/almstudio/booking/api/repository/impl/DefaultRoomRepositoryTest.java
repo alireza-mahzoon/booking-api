@@ -11,6 +11,7 @@ import se.almstudio.booking.api.model.entity.RoomType;
 import java.time.LocalDateTime;
 
 public class DefaultRoomRepositoryTest {
+
   private static Long hotelId;
   private static Long roomTypeId;
   private static Long roomTypeUpdateId;
