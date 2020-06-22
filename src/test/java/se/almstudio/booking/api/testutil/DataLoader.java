@@ -34,34 +34,36 @@ public class DataLoader {
     List<Long> roomId = new ArrayList<>();
 
     for (int i = 0; i < hotels; i++) {
-        Hotel hotel = new Hotel();
-        hotel.setName(faker.name().name());
-        hotel.setAddress(faker.address().fullAddress());
-        hotel.setCity(faker.address().city());
-        hotel.setCountry(faker.address().country());
-        Long result = hotelRepository.create(hotel);
-        hotelId.add(result);
+      Hotel hotel = new Hotel();
+      hotel.setName(faker.name().name());
+      hotel.setAddress(faker.address().fullAddress());
+      hotel.setCity(faker.address().city());
+      hotel.setCountry(faker.address().country());
+      Long result = hotelRepository.create(hotel);
+      hotelId.add(result);
     }
 
     for (int i = 0; i < roomTypes; i++) {
-        RoomType roomType = new RoomType();
-        roomType.setHotelId(hotelId.get(i));
-        roomType.setName(faker.name().name());
-        roomType.setDescription(faker.lorem().sentence());
-        roomType.setCapacity(faker.number().numberBetween(2,6));
-        Long result = roomTypeRepository.create(roomType);
-        roomTypeId.add(result);
+      RoomType roomType = new RoomType();
+      roomType.setHotelId(hotelId.get(i));
+      roomType.setName(faker.name().name());
+      roomType.setDescription(faker.lorem().sentence());
+      roomType.setCapacity(faker.number().numberBetween(2,6));
+      Long result = roomTypeRepository.create(roomType);
+      roomTypeId.add(result);
     }
 
     for (int i = 0; i < rooms; i++) {
-        Room room = new Room();
-        room.setHotelId(hotelId.get(i));
-        room.setRoomTypeId(roomTypeId.get(i));
+      Room room = new Room();
+      room.setHotelId(hotelId.get(i));
+      for (int j = 0; j < rooms; j++) {
+        room.setRoomTypeId(roomTypeId.get(j));
         room.setNumber(faker.number().numberBetween(1,100000));
         room.setPhoneNumber(faker.phoneNumber().toString());
         room.setFloor(faker.number().numberBetween(1,200));
         Long result = roomRepository.create(room);
         roomId.add(result);
+      }
     }
 
     for (int i = 0; i < roomAmenities; i++) {
@@ -75,11 +77,13 @@ public class DataLoader {
 
     for (int i = 0; i < hotelAmenities; i++) {
       HotelAmenity hotelAmenity = new HotelAmenity();
-      hotelAmenity.setHotelId(hotelId.get(i));
-      hotelAmenity.setName(faker.name().name());
-      hotelAmenity.setDescription(faker.lorem().sentence(5));
-      hotelAmenity.setPricing("500SEK");
-      hotelAmenityRepository.create(hotelAmenity);
+      for (int j = 0; j < hotelAmenities; j++) {
+        hotelAmenity.setHotelId(hotelId.get(i));
+        hotelAmenity.setName(faker.name().name());
+        hotelAmenity.setDescription(faker.lorem().sentence(5));
+        hotelAmenity.setPricing("500SEK");
+        hotelAmenityRepository.create(hotelAmenity);
+      }
     }
 
     for (int i = 0; i < users; i++) {
