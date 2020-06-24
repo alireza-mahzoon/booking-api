@@ -43,10 +43,10 @@ public class DataLoader {
       hotelId.add(result);
     }
 
-    for (int i = 0; i < roomTypes; i++) {
+    for (int i = 0; i < roomTypes ; i++) {
       RoomType roomType = new RoomType();
       roomType.setHotelId(hotelId.get(i));
-      roomType.setName(faker.name().name());
+      roomType.setName(faker.name().title());
       roomType.setDescription(faker.lorem().sentence());
       roomType.setCapacity(faker.number().numberBetween(2,6));
       Long result = roomTypeRepository.create(roomType);
@@ -57,10 +57,10 @@ public class DataLoader {
       Room room = new Room();
       room.setHotelId(hotelId.get(i));
       for (int j = 0; j < rooms; j++) {
-        room.setRoomTypeId(roomTypeId.get(j));
         room.setNumber(faker.number().numberBetween(1,100000));
-        room.setPhoneNumber(faker.phoneNumber().toString());
+        room.setPhoneNumber(faker.phoneNumber().phoneNumber());
         room.setFloor(faker.number().numberBetween(1,200));
+        room.setRoomTypeId(roomTypeId.get(j));
         Long result = roomRepository.create(room);
         roomId.add(result);
       }
