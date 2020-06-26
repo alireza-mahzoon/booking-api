@@ -156,7 +156,7 @@ public class DefaultRoomRepository implements RoomRepository {
         room.setRegistered(rs.getObject("registered", LocalDateTime.class));
         rooms.add(room);
       }
-      LOGGER.debug("Rooms were found with hotelId={}", hotelId);
+      LOGGER.debug("{} Rooms were found with hotelId={}", rooms.size() ,hotelId);
       return rooms;
     } catch (SQLException e) {
       LOGGER.warn("Failed to find rooms with hotelId={}", hotelId);
