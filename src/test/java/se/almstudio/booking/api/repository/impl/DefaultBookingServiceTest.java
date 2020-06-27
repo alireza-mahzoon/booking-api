@@ -1,16 +1,19 @@
 package se.almstudio.booking.api.repository.impl;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import se.almstudio.booking.api.model.entity.*;
 import se.almstudio.booking.api.service.impl.DefaultBookingService;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DefaultBookingServiceTest {
 
-  private static Long hotelId;
+  /*private static Long hotelId;
   private static Long roomId;
   private static Long userId;
   private static Long roomTypeId;
@@ -68,25 +71,12 @@ public class DefaultBookingServiceTest {
     booking.setRoomId(roomId);
     booking.setRegistered(LocalDateTime.now());
     booking.setUpdated(LocalDateTime.now());
-  }
+  }*/
 
   @Test
-  public void testFindBookingExpectNotNull() {
+  public void testFindHotelByCityAndCountryExpectNotNull() {
     DefaultBookingService bookingService = new DefaultBookingService();
-    LocalDate checkInDate = LocalDate.of(2019, 9, 10);
-    LocalDate checkOutDate = LocalDate.of(2019, 9, 11);
-    bookingService.findBooking(checkInDate , checkOutDate );
-  }
-
-  @Test
-  public void testFindHotelExpectNotNull() {
-    DefaultBookingService bookingService = new DefaultBookingService();
-    bookingService.findHotelByCityAndCountry("Stockholm", "Sweden");
-  }
-
-  @Test
-  public void testFindRoomTypeExpectNotNull() {
-    DefaultBookingService bookingService = new DefaultBookingService();
-    bookingService.findRoomType(2);
+    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Lake Gabriel", "Mayotte", "Dynamic Usability Manager" );
+    Assert.assertNotEquals(0L, result.size());
   }
 }
