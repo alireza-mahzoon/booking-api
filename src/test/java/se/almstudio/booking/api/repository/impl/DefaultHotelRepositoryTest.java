@@ -1,8 +1,6 @@
 package se.almstudio.booking.api.repository.impl;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import se.almstudio.booking.api.model.entity.Hotel;
 

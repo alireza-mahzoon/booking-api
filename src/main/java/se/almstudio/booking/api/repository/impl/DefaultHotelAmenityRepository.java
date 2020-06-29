@@ -106,7 +106,7 @@ public class DefaultHotelAmenityRepository implements HotelAmenityRepository {
 
   @Override
   public boolean delete(Long hotelAmenitiesId) {
-    LOGGER.info("Deleting hotelAmenity with hotelAmenitiesId)={}", hotelAmenitiesId);
+    LOGGER.info("Deleting hotelAmenity with hotelAmenitiesId={}", hotelAmenitiesId);
     Connection connection = null;
     PreparedStatement ps = null;
     try {

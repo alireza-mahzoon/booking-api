@@ -3,7 +3,6 @@ package se.almstudio.booking.api.repository.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.almstudio.booking.api.model.entity.Booking;
-import se.almstudio.booking.api.model.entity.User;
 import se.almstudio.booking.api.repository.BookingRepository;
 import se.almstudio.booking.api.util.ConnectionManager;
 import se.almstudio.booking.api.util.impl.ConnectionUtils;

@@ -69,8 +69,3 @@ create table Booking (
     Registered timestamp not null,
     Updated timestamp not null
 );
-
-
-
-
-
