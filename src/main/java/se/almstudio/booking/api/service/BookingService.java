@@ -4,6 +4,7 @@ import se.almstudio.booking.api.model.entity.Booking;
 import se.almstudio.booking.api.model.entity.CityCountryRoomType;
 import se.almstudio.booking.api.model.entity.Hotel;
 import se.almstudio.booking.api.model.entity.RoomType;
+import se.almstudio.booking.api.model.rest.BookingOffer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,4 +20,12 @@ public interface BookingService {
    * @return Hotel if found, {@code null} if not found
    */
   List<CityCountryRoomType> findHotelByCityAndCountry(String city, String country, String roomTypeName);
+
+  /**
+   *
+   * @param city
+   * @param country
+   * @return List of rooms if found, {@code null} if not found
+   */
+  BookingOffer findOffer(String city, String country);
 }
