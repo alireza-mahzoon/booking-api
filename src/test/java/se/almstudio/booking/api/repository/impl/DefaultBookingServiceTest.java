@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import se.almstudio.booking.api.model.entity.*;
+import se.almstudio.booking.api.model.rest.BookingOffer;
 import se.almstudio.booking.api.service.impl.DefaultBookingService;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,8 @@ import java.util.List;
 public class DefaultBookingServiceTest {
 
   private static Long hotelId;
-  private static Long roomTypeId;
+  private static Long roomTypeIdOne;
+  private static Long roomTypeIdTwo;
   private static Long roomId;
 
   @BeforeClass
@@ -28,14 +30,23 @@ public class DefaultBookingServiceTest {
     hotelId = hotelRepository.create(hotel);
 
     DefaultRoomTypeRepository roomTypeRepository = new DefaultRoomTypeRepository();
-    RoomType roomType = new RoomType();
-    roomType.setHotelId(hotelId);
-    roomType.setName("typeOne");
-    roomType.setDescription("oneBed");
-    roomType.setCapacity(1);
-    roomType.setRegistered(LocalDateTime.now());
-    roomType.setUpdated(LocalDateTime.now());
-    roomTypeId = roomTypeRepository.create(roomType);
+    RoomType roomTypeOne = new RoomType();
+    roomTypeOne.setHotelId(hotelId);
+    roomTypeOne.setName("typeOne");
+    roomTypeOne.setDescription("oneBed");
+    roomTypeOne.setCapacity(1);
+    roomTypeOne.setRegistered(LocalDateTime.now());
+    roomTypeOne.setUpdated(LocalDateTime.now());
+    roomTypeIdOne = roomTypeRepository.create(roomTypeOne);
+
+    RoomType roomTypeTwo = new RoomType();
+    roomTypeTwo.setHotelId(hotelId);
+    roomTypeTwo.setName("typeTwo");
+    roomTypeTwo.setDescription("twoBeds");
+    roomTypeTwo.setCapacity(2);
+    roomTypeTwo.setRegistered(LocalDateTime.now());
+    roomTypeTwo.setUpdated(LocalDateTime.now());
+    roomTypeIdTwo = roomTypeRepository.create(roomTypeTwo);
 
     DefaultRoomRepository roomRepository = new DefaultRoomRepository();
     Room room = new Room();
@@ -43,7 +54,7 @@ public class DefaultBookingServiceTest {
     room.setNumber(99);
     room.setPhoneNumber("964389");
     room.setFloor(25);
-    room.setRoomTypeId(roomTypeId);
+    room.setRoomTypeId(roomTypeIdTwo);
     room.setRegistered(LocalDateTime.now());
     room.setUpdated(LocalDateTime.now());
     roomId = roomRepository.create(room);
@@ -52,7 +63,14 @@ public class DefaultBookingServiceTest {
   @Test
   public void testFindHotelByCityAndCountryExpectNotNull() {
     DefaultBookingService bookingService = new DefaultBookingService();
-    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Stockholm", "Sweden", "typeOne");
+    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Stockholm", "Sweden", "typeTwo");
     Assert.assertNotEquals(0L, result.size());
+  }
+
+  @Test
+  public void testFindOfferByCityAndCountryExpectNotNull() {
+    DefaultBookingService bookingService = new DefaultBookingService();
+    BookingOffer result = bookingService.findOffer("Stockholm","Sweden");
+    Assert.assertNotNull(result);
   }
 }
