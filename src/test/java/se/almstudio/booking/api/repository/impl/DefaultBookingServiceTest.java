@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import se.almstudio.booking.api.model.entity.*;
 import se.almstudio.booking.api.model.rest.BookingOffer;
+import se.almstudio.booking.api.model.rest.HotelOffer;
 import se.almstudio.booking.api.service.impl.DefaultBookingService;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,8 @@ public class DefaultBookingServiceTest {
   private static Long roomTypeIdTwo;
   private static Long roomId;
 
-  @BeforeClass
+  //
+  // @BeforeClass
   public static void beforeClass() {
     DefaultHotelRepository hotelRepository = new DefaultHotelRepository();
     Hotel hotel = new Hotel();
@@ -71,6 +73,11 @@ public class DefaultBookingServiceTest {
   public void testFindOfferByCityAndCountryExpectNotNull() {
     DefaultBookingService bookingService = new DefaultBookingService();
     BookingOffer result = bookingService.findOffer("Stockholm","Sweden");
+    System.out.println(result);
+    System.out.println(result.getAvailableRooms().size());
+    for (HotelOffer offer : result.getAvailableRooms()) {
+      System.out.println("number of roomTypes " + offer.getRoomTypes().size());
+    }
     Assert.assertNotNull(result);
   }
 }
