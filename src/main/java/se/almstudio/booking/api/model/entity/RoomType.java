@@ -66,5 +66,18 @@ public class RoomType {
   public void setRegistered(LocalDateTime registered) {
     Registered = registered;
   }
+
+  @Override
+  public String toString() {
+    return "RoomType{" +
+      "id=" + id +
+      ", hotelId=" + hotelId +
+      ", name='" + name + '\'' +
+      ", description='" + description + '\'' +
+      ", capacity=" + capacity +
+      ", Registered=" + Registered +
+      ", Updated=" + Updated +
+      '}';
+  }
 }
 
