@@ -5,9 +5,8 @@ import org.slf4j.LoggerFactory;
 
 import se.almstudio.booking.api.model.entity.CityCountryRoomType;
 import se.almstudio.booking.api.model.entity.Hotel;
-import se.almstudio.booking.api.model.entity.Room;
 import se.almstudio.booking.api.model.entity.RoomType;
-import se.almstudio.booking.api.model.rest.AvailableRooms;
+import se.almstudio.booking.api.model.rest.HotelOffer;
 import se.almstudio.booking.api.model.rest.BookingOffer;
 import se.almstudio.booking.api.repository.impl.DefaultRoomRepository;
 import se.almstudio.booking.api.service.BookingService;
@@ -69,30 +68,41 @@ public class DefaultBookingService implements BookingService {
     ResultSet rs = null;
     try {
       connection = ConnectionManager.INSTANCE.getConnection();
-      String query = "SELECT * from hotel join room ON hotel.id = room.hotelid WHERE hotel.city= ? AND hotel.country = ?";
+      String query = "SELECT * from hotel join roomtype ON hotel.id = roomtype.hotelid WHERE hotel.city= ? AND hotel.country = ?";
       ps = connection.prepareStatement(query);
       ps.setString(1, city);
       ps.setString(2, country);
       ps.execute();
       rs = ps.getResultSet();
 
-      List<AvailableRooms> rooms = new ArrayList<>();
       List<RoomType> roomTypes = new ArrayList<>();
+      List<HotelOffer> hotelOffers = new ArrayList<>();
       BookingOffer bookingOffer = new BookingOffer();
-
       while (rs.next()) {
-        AvailableRooms availableRooms = new AvailableRooms();
-        RoomType roomType = new RoomType();
         Hotel hotel = new Hotel();
-        hotel.setId(rs.getLong("ID"));
-        roomType.setId(rs.getLong("roomTypeId"));
+        RoomType roomType = new RoomType();
+        hotel.setId(rs.getLong("HotelId"));
+        hotel.setName(rs.getString("name"));
+        hotel.setAddress(rs.getString("address"));
+        hotel.setCity(rs.getString("city"));
+        hotel.setCountry(rs.getString("country"));
+        hotel.setRegistered(rs.getObject("registered", LocalDateTime.class));
+        hotel.setUpdated(rs.getObject("updated", LocalDateTime.class));
+        roomType.setId(rs.getLong("ID"));
+        roomType.setHotelId(rs.getLong("hotelID"));
+        roomType.setName(rs.getString("name"));
+        roomType.setDescription(rs.getString("description"));
+        roomType.setCapacity(rs.getInt("capacity"));
+        roomType.setRegistered(rs.getObject("registered", LocalDateTime.class));
+        roomType.setUpdated(rs.getObject("updated", LocalDateTime.class));
         roomTypes.add(roomType);
-        availableRooms.setHotel(hotel);
-        availableRooms.setRoomTypes(roomTypes);
-        rooms.add(availableRooms);
-        bookingOffer.setAvailableRooms(rooms);
+        HotelOffer hotelOffer = new HotelOffer();
+        hotelOffer.setHotel(hotel);
+        hotelOffer.setRoomTypes(roomTypes);
+        hotelOffers.add(hotelOffer);
+        bookingOffer.setAvailableRooms(hotelOffers);
       }
-      LOGGER.debug("{} booking offer were found with city={}, country={}", rooms.size(), city, country);
+      LOGGER.debug("booking offer were found with city={}, country={}", city, country);
       return bookingOffer;
     } catch (SQLException e) {
       LOGGER.warn("Failed to find rooms");
