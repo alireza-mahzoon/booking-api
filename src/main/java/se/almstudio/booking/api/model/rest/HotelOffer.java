@@ -5,7 +5,7 @@ import se.almstudio.booking.api.model.entity.RoomType;
 
 import java.util.List;
 
-public class AvailableRooms {
+public class HotelOffer {
   private Hotel hotel;
   private List<RoomType> roomTypes;
 
@@ -21,7 +21,15 @@ public class AvailableRooms {
     return hotel;
   }
 
-  public List<RoomType> getRoomTypes(RoomType roomType) {
+  public List<RoomType> getRoomTypes() {
     return roomTypes;
+  }
+
+  @Override
+  public String toString() {
+    return "HotelOffer{" +
+      "hotel=" + hotel +
+      ", roomTypes=" + roomTypes +
+      '}';
   }
 }

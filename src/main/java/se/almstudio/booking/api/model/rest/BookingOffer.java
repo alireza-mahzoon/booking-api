@@ -1,18 +1,22 @@
 package se.almstudio.booking.api.model.rest;
 
-import se.almstudio.booking.api.model.entity.Room;
-
 import java.util.List;
 
 public class BookingOffer {
-  private List<AvailableRooms> availableRooms;
+  private List<HotelOffer> availableRooms;
 
-  public void setAvailableRooms(List<AvailableRooms> availableRooms) {
+  public void setAvailableRooms(List<HotelOffer> availableRooms) {
     this.availableRooms = availableRooms;
   }
 
-  public List<AvailableRooms> getAvailableRooms() {
+  public List<HotelOffer> getAvailableRooms() {
     return availableRooms;
   }
 
+  @Override
+  public String toString() {
+    return "BookingOffer{" +
+      "availableRooms=" + availableRooms +
+      '}';
+  }
 }
