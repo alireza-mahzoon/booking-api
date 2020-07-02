@@ -1,6 +1,7 @@
 package se.almstudio.booking.api.model.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Hotel {
   private Long id;
@@ -67,6 +68,18 @@ public class Hotel {
     this.registered = registered;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Hotel hotel = (Hotel) o;
+    return id.equals(hotel.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
   @Override
   public String toString() {

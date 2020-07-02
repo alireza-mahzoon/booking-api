@@ -18,8 +18,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static javax.swing.UIManager.get;
 
 public class DefaultBookingService implements BookingService {
 
@@ -75,9 +76,11 @@ public class DefaultBookingService implements BookingService {
       ps.execute();
       rs = ps.getResultSet();
 
-      List<RoomType> roomTypes = new ArrayList<>();
-      List<HotelOffer> hotelOffers = new ArrayList<>();
+      Map<Hotel, List<RoomType>> hotelRoomTypes = new HashMap<>();
+
       BookingOffer bookingOffer = new BookingOffer();
+
+
       while (rs.next()) {
         Hotel hotel = new Hotel();
         RoomType roomType = new RoomType();
@@ -88,19 +91,23 @@ public class DefaultBookingService implements BookingService {
         hotel.setCountry(rs.getString("country"));
         hotel.setRegistered(rs.getObject("registered", LocalDateTime.class));
         hotel.setUpdated(rs.getObject("updated", LocalDateTime.class));
-        roomType.setId(rs.getLong("ID"));
+        roomType.setId(rs.getLong(8));
         roomType.setHotelId(rs.getLong("hotelID"));
         roomType.setName(rs.getString("name"));
         roomType.setDescription(rs.getString("description"));
         roomType.setCapacity(rs.getInt("capacity"));
         roomType.setRegistered(rs.getObject("registered", LocalDateTime.class));
         roomType.setUpdated(rs.getObject("updated", LocalDateTime.class));
+        List<RoomType> roomTypes = hotelRoomTypes.get(hotel);
+        if (roomTypes == null) {
+          roomTypes = new ArrayList<>();
+        }
         roomTypes.add(roomType);
-        HotelOffer hotelOffer = new HotelOffer();
-        hotelOffer.setHotel(hotel);
-        hotelOffer.setRoomTypes(roomTypes);
-        hotelOffers.add(hotelOffer);
-        bookingOffer.setAvailableRooms(hotelOffers);
+        hotelRoomTypes.put(hotel, roomTypes);
+      }
+      System.out.println(hotelRoomTypes);
+      for (Map.Entry<Hotel, List<RoomType>> entry : hotelRoomTypes.entrySet()) {
+        System.out.println(entry);
       }
       LOGGER.debug("booking offer were found with city={}, country={}", city, country);
       return bookingOffer;
