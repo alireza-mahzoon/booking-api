@@ -10,7 +10,7 @@ import se.almstudio.booking.api.service.impl.DefaultBookingService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+/**
 public class DefaultBookingServiceTest {
 
   private static Long hotelId;
@@ -62,12 +62,12 @@ public class DefaultBookingServiceTest {
     roomId = roomRepository.create(room);
   }
 
-//  @Test
-//  public void testFindHotelByCityAndCountryExpectNotNull() {
-//    DefaultBookingService bookingService = new DefaultBookingService();
-//    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Stockholm", "Sweden", "typeTwo");
-//    Assert.assertNotEquals(0L, result.size());
-//  }
+  @Test
+  public void testFindHotelByCityAndCountryExpectNotNull() {
+    DefaultBookingService bookingService = new DefaultBookingService();
+    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Stockholm", "Sweden", "typeTwo");
+    Assert.assertNotEquals(0L, result.size());
+  }
 
   @Test
   public void testFindOfferByCityAndCountryExpectNotNull() {
