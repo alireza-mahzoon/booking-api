@@ -62,22 +62,24 @@ public class DefaultBookingServiceTest {
     roomId = roomRepository.create(room);
   }
 
-  @Test
-  public void testFindHotelByCityAndCountryExpectNotNull() {
-    DefaultBookingService bookingService = new DefaultBookingService();
-    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Stockholm", "Sweden", "typeTwo");
-    Assert.assertNotEquals(0L, result.size());
-  }
+//  @Test
+//  public void testFindHotelByCityAndCountryExpectNotNull() {
+//    DefaultBookingService bookingService = new DefaultBookingService();
+//    List<CityCountryRoomType> result = bookingService.findHotelByCityAndCountry("Stockholm", "Sweden", "typeTwo");
+//    Assert.assertNotEquals(0L, result.size());
+//  }
 
   @Test
   public void testFindOfferByCityAndCountryExpectNotNull() {
     DefaultBookingService bookingService = new DefaultBookingService();
     BookingOffer result = bookingService.findOffer("Stockholm","Sweden");
+
     System.out.println(result);
     System.out.println(result.getAvailableRooms().size());
     for (HotelOffer offer : result.getAvailableRooms()) {
       System.out.println("number of roomTypes " + offer.getRoomTypes().size());
     }
+
     Assert.assertNotNull(result);
   }
 }
